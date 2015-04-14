@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9548CA9E-CF6A-423C-818D-498937E5D078}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>WindowsApplication1.My.MyApplication</StartupObject>
+    <RootNamespace>WindowsApplication1</RootNamespace>
+    <AssemblyName>PRC-117G Application</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\PRC117G 1.1.1.19\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>PRC-117G Application.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>PRC-117G Application.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Avenge logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>449E28C96A7846FAA55B8CF6FF33F46D8EE69FEB</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>WindowsApplication1_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox1.Designer.vb">
+      <DependentUpon>AboutBox1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AboutBox1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="CTCSS.Designer.vb">
+      <DependentUpon>CTCSS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CTCSS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataSetForm.Designer.vb">
+      <DependentUpon>DataSetForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelperForm.Designer.vb">
+      <DependentUpon>HelperForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HelperForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="kdu.Designer.vb">
+      <DependentUpon>kdu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="kdu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="MyGlobalData.Designer.vb">
+      <DependentUpon>MyGlobalData.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MyGlobalData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsCodes.Designer.vb">
+      <DependentUpon>OptionsCodes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsCodes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsModule.vb" />
+    <Compile Include="Readme.Designer.vb">
+      <DependentUpon>Readme.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Readme.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SatcomPresets.Designer.vb">
+      <DependentUpon>SatcomPresets.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SatcomPresets.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="selectBtnDetail.Designer.vb">
+      <DependentUpon>selectBtnDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="selectBtnDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Squelch.vb" />
+    <Compile Include="StoredPresetsDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoredPresetsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="StoredPresetsDataSet.vb">
+      <DependentUpon>StoredPresetsDataSet.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AboutBox1.resx">
+      <DependentUpon>AboutBox1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CTCSS.resx">
+      <DependentUpon>CTCSS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataSetForm.resx">
+      <DependentUpon>DataSetForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperForm.resx">
+      <DependentUpon>HelperForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="kdu.resx">
+      <DependentUpon>kdu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyGlobalData.resx">
+      <DependentUpon>MyGlobalData.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsCodes.resx">
+      <DependentUpon>OptionsCodes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Readme.resx">
+      <DependentUpon>Readme.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SatcomPresets.resx">
+      <DependentUpon>SatcomPresets.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="selectBtnDetail.resx">
+      <DependentUpon>selectBtnDetail.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="My Project\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+    <None Include="StoredPresetsDataSet.xsc">
+      <DependentUpon>StoredPresetsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="StoredPresetsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StoredPresetsDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="StoredPresetsDataSet.xss">
+      <DependentUpon>StoredPresetsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="WindowsApplication1_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KnobOFF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KnobCT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KnobPT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KnobLD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KnobZ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Harris Logo.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Falcon 3 logo.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Initializing Screen.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blank.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\batteryScale.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\batteryScale1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlankGreen.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Avenge logo.ico" />
+    <None Include="Resources\UpArrow.PNG" />
+    <None Include="Resources\cycle.PNG" />
+    <None Include="Resources\DownArrow.PNG" />
+    <Content Include="Resources\LeftAndRight.jpg" />
+    <None Include="Resources\UpDown.png" />
+    <None Include="Resources\BlackBackground.png" />
+    <None Include="Resources\scrollbarNull.png" />
+    <None Include="Resources\scrollbarFull.png" />
+    <None Include="Resources\LCD1.PNG" />
+    <None Include="Resources\UpAndDown.png" />
+    <None Include="Resources\ScrollBar8.png" />
+    <None Include="Resources\scrollbar7.png" />
+    <None Include="Resources\scrollbar6.png" />
+    <None Include="Resources\scrollbar5.png" />
+    <None Include="Resources\ScrollBar4.png" />
+    <None Include="Resources\scrollbar3.png" />
+    <None Include="Resources\scrollbar2.png" />
+    <None Include="Resources\ScrollBar1.png" />
+    <None Include="Resources\ScrollBar.png" />
+    <None Include="Resources\Grid.png" />
+    <None Include="Resources\NextButton.png" />
+    <None Include="Resources\NextIndicator.PNG" />
+    <None Include="Resources\RxTxPowerScale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SqlServer.SqlLocalDB.11.0">
+      <Visible>False</Visible>
+      <ProductName>SQL Server 2012 Express LocalDB</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.VisualBasic.PowerPacks.10.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft Visual Basic PowerPacks 10.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

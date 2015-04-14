@@ -5246,7 +5246,7 @@ Public Class Form1
 
         senderName = "Form_Load"
 
-        'AboutBox1.ShowDialog()
+        AboutBox1.ShowDialog()
 
         DataSetForm.Show() 'loads the dataset form
         'DataSetForm.Hide()
@@ -5263,7 +5263,7 @@ Public Class Form1
 
         Readme.Show()
 
-        kdu.Show()
+        'kdu.Show()
 
 
         RecallPreset() 'gets data from the datagridview

@@ -1761,6 +1761,7 @@ Partial Class kdu
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
         Me.Name = "kdu"
         Me.Text = "Keypad Display Unit"
         CType(Me.b6PB, System.ComponentModel.ISupportInitialize).EndInit()

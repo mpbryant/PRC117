@@ -157,6 +157,11 @@ Partial Class kdu
         Me.ip14 = New System.Windows.Forms.TextBox()
         Me.closeBtn = New System.Windows.Forms.Button()
         Me.moveBtn = New System.Windows.Forms.Button()
+        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
+        Me.RectangleShape1 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
+        Me.RectangleShape2 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
+        Me.RectangleShape3 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
+        Me.RectangleShape4 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
         CType(Me.b6PB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.b7PB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.a3PB, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1253,7 +1258,7 @@ Partial Class kdu
         '
         'namebox9
         '
-        Me.namebox9.Location = New System.Drawing.Point(315, 98)
+        Me.namebox9.Location = New System.Drawing.Point(305, 0)
         Me.namebox9.Name = "namebox9"
         Me.namebox9.Size = New System.Drawing.Size(25, 20)
         Me.namebox9.TabIndex = 169
@@ -1261,7 +1266,7 @@ Partial Class kdu
         '
         'namebox8
         '
-        Me.namebox8.Location = New System.Drawing.Point(284, 98)
+        Me.namebox8.Location = New System.Drawing.Point(274, 0)
         Me.namebox8.Name = "namebox8"
         Me.namebox8.Size = New System.Drawing.Size(25, 20)
         Me.namebox8.TabIndex = 170
@@ -1269,7 +1274,7 @@ Partial Class kdu
         '
         'namebox7
         '
-        Me.namebox7.Location = New System.Drawing.Point(253, 98)
+        Me.namebox7.Location = New System.Drawing.Point(243, 0)
         Me.namebox7.Name = "namebox7"
         Me.namebox7.Size = New System.Drawing.Size(25, 20)
         Me.namebox7.TabIndex = 171
@@ -1277,7 +1282,7 @@ Partial Class kdu
         '
         'namebox6
         '
-        Me.namebox6.Location = New System.Drawing.Point(222, 98)
+        Me.namebox6.Location = New System.Drawing.Point(212, 0)
         Me.namebox6.Name = "namebox6"
         Me.namebox6.Size = New System.Drawing.Size(25, 20)
         Me.namebox6.TabIndex = 172
@@ -1285,7 +1290,7 @@ Partial Class kdu
         '
         'namebox5
         '
-        Me.namebox5.Location = New System.Drawing.Point(191, 98)
+        Me.namebox5.Location = New System.Drawing.Point(181, 0)
         Me.namebox5.Name = "namebox5"
         Me.namebox5.Size = New System.Drawing.Size(25, 20)
         Me.namebox5.TabIndex = 173
@@ -1293,7 +1298,7 @@ Partial Class kdu
         '
         'namebox4
         '
-        Me.namebox4.Location = New System.Drawing.Point(160, 98)
+        Me.namebox4.Location = New System.Drawing.Point(150, 0)
         Me.namebox4.Name = "namebox4"
         Me.namebox4.Size = New System.Drawing.Size(25, 20)
         Me.namebox4.TabIndex = 174
@@ -1301,7 +1306,7 @@ Partial Class kdu
         '
         'namebox3
         '
-        Me.namebox3.Location = New System.Drawing.Point(129, 98)
+        Me.namebox3.Location = New System.Drawing.Point(119, 0)
         Me.namebox3.Name = "namebox3"
         Me.namebox3.Size = New System.Drawing.Size(25, 20)
         Me.namebox3.TabIndex = 175
@@ -1309,7 +1314,7 @@ Partial Class kdu
         '
         'namebox2
         '
-        Me.namebox2.Location = New System.Drawing.Point(98, 98)
+        Me.namebox2.Location = New System.Drawing.Point(88, 0)
         Me.namebox2.Name = "namebox2"
         Me.namebox2.Size = New System.Drawing.Size(25, 20)
         Me.namebox2.TabIndex = 176
@@ -1317,7 +1322,7 @@ Partial Class kdu
         '
         'namebox1
         '
-        Me.namebox1.Location = New System.Drawing.Point(67, 98)
+        Me.namebox1.Location = New System.Drawing.Point(57, 0)
         Me.namebox1.Name = "namebox1"
         Me.namebox1.Size = New System.Drawing.Size(25, 20)
         Me.namebox1.TabIndex = 177
@@ -1325,7 +1330,7 @@ Partial Class kdu
         '
         'namebox10
         '
-        Me.namebox10.Location = New System.Drawing.Point(346, 98)
+        Me.namebox10.Location = New System.Drawing.Point(336, 0)
         Me.namebox10.Name = "namebox10"
         Me.namebox10.Size = New System.Drawing.Size(25, 20)
         Me.namebox10.TabIndex = 178
@@ -1659,6 +1664,56 @@ Partial Class kdu
         Me.moveBtn.UseVisualStyleBackColor = False
         Me.moveBtn.Visible = False
         '
+        'ShapeContainer1
+        '
+        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
+        Me.ShapeContainer1.Name = "ShapeContainer1"
+        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.RectangleShape4, Me.RectangleShape3, Me.RectangleShape2, Me.RectangleShape1})
+        Me.ShapeContainer1.Size = New System.Drawing.Size(621, 396)
+        Me.ShapeContainer1.TabIndex = 214
+        Me.ShapeContainer1.TabStop = False
+        '
+        'RectangleShape1
+        '
+        Me.RectangleShape1.BackColor = System.Drawing.Color.MediumSeaGreen
+        Me.RectangleShape1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
+        Me.RectangleShape1.BorderColor = System.Drawing.Color.MediumSeaGreen
+        Me.RectangleShape1.FillColor = System.Drawing.Color.Black
+        Me.RectangleShape1.Location = New System.Drawing.Point(426, 123)
+        Me.RectangleShape1.Name = "RectangleShape1"
+        Me.RectangleShape1.Size = New System.Drawing.Size(3, 157)
+        '
+        'RectangleShape2
+        '
+        Me.RectangleShape2.BackColor = System.Drawing.Color.MediumSeaGreen
+        Me.RectangleShape2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
+        Me.RectangleShape2.BorderColor = System.Drawing.Color.MediumSeaGreen
+        Me.RectangleShape2.FillColor = System.Drawing.Color.Black
+        Me.RectangleShape2.Location = New System.Drawing.Point(168, 123)
+        Me.RectangleShape2.Name = "RectangleShape2"
+        Me.RectangleShape2.Size = New System.Drawing.Size(3, 154)
+        '
+        'RectangleShape3
+        '
+        Me.RectangleShape3.BackColor = System.Drawing.Color.MediumSeaGreen
+        Me.RectangleShape3.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
+        Me.RectangleShape3.BorderColor = System.Drawing.Color.MediumSeaGreen
+        Me.RectangleShape3.FillColor = System.Drawing.Color.Black
+        Me.RectangleShape3.Location = New System.Drawing.Point(168, 275)
+        Me.RectangleShape3.Name = "RectangleShape3"
+        Me.RectangleShape3.Size = New System.Drawing.Size(260, 6)
+        '
+        'RectangleShape4
+        '
+        Me.RectangleShape4.BackColor = System.Drawing.Color.MediumSeaGreen
+        Me.RectangleShape4.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
+        Me.RectangleShape4.BorderColor = System.Drawing.Color.MediumSeaGreen
+        Me.RectangleShape4.FillColor = System.Drawing.Color.Black
+        Me.RectangleShape4.Location = New System.Drawing.Point(168, 122)
+        Me.RectangleShape4.Name = "RectangleShape4"
+        Me.RectangleShape4.Size = New System.Drawing.Size(260, 6)
+        '
         'kdu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1798,6 +1853,7 @@ Partial Class kdu
         Me.Controls.Add(Me.a2TB)
         Me.Controls.Add(Me.displayPic)
         Me.Controls.Add(Me.selectBTN)
+        Me.Controls.Add(Me.ShapeContainer1)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -1948,4 +2004,9 @@ Partial Class kdu
     Friend WithEvents ip14 As System.Windows.Forms.TextBox
     Friend WithEvents closeBtn As System.Windows.Forms.Button
     Friend WithEvents moveBtn As System.Windows.Forms.Button
+    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
+    Friend WithEvents RectangleShape4 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents RectangleShape3 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents RectangleShape2 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents RectangleShape1 As Microsoft.VisualBasic.PowerPacks.RectangleShape
 End Class

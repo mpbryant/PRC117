@@ -171,7 +171,7 @@ Public Class kdu
         selectBTN.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         KduDimmer.Show()
-        KduDimmer.Location = New Point(Me.Location.X + 181, Me.Location.Y + 157)
+        KduDimmer.Location = New Point(Me.Location.X + 178, Me.Location.Y + 154)
     End Sub
 
 
@@ -338,7 +338,7 @@ Public Class kdu
         Me.TransparencyKey = Color.FromArgb(128, 128, 128)
         Me.closeBtn.Visible = False
         Me.moveBtn.Visible = False
-        KduDimmer.Location = New Point(Me.Location.X + 181, Me.Location.Y + 157)
+        KduDimmer.Location = New Point(Me.Location.X + 178, Me.Location.Y + 154)
     End Sub
 
     Public Sub TransparencyHide()
@@ -346,7 +346,7 @@ Public Class kdu
         Me.closeBtn.Visible = True
         Me.moveBtn.Visible = True
         Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-        KduDimmer.Location = New Point(Me.Location.X + 171, Me.Location.Y + 124)
+        KduDimmer.Location = New Point(Me.Location.X + 168, Me.Location.Y + 122)
     End Sub
 
 
@@ -356,9 +356,9 @@ Public Class kdu
 
     Private Sub kdu_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
         If Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None Then
-            KduDimmer.Location = New Point(Me.Location.X + 171, Me.Location.Y + 124)
+            KduDimmer.Location = New Point(Me.Location.X + 168, Me.Location.Y + 122)
         Else
-            KduDimmer.Location = New Point(Me.Location.X + 181, Me.Location.Y + 157)
+            KduDimmer.Location = New Point(Me.Location.X + 178, Me.Location.Y + 154)
         End If
 
     End Sub

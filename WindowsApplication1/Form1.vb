@@ -1,5 +1,6 @@
 ﻿Imports System.Threading
 Imports System.Data.SqlClient
+Imports System.Drawing.Drawing2D
 
 
 
@@ -129,8 +130,8 @@ Public Class Form1
     Dim maxFillNum As Integer 'used along with GenericNumberScroll() to initiate the highest number 
 
     Dim from As String
-    Dim light As Integer = 0 'represents the state of the backlight 1=on, 0=off
-    Dim senderName As String =""   'variable representing the sending sub
+    Dim light As Integer = 1 'represents the state of the backlight 1=on, 0=off
+    Dim senderName As String = ""   'variable representing the sending sub
 
     Dim volBar As Integer = 451   'represents the volume level bar graph as a pixel location
     Dim volumeBar As New TextBox 'the top visible moving scale
@@ -322,11 +323,17 @@ Public Class Form1
     Dim yfactor As Integer = -22
     Dim startTimerCount As Integer = 0  'used to count the clock ticks in TurnOnCheck()
     Dim numOfInstances As Integer
+    Dim drag As Boolean
+    Dim mousex As Integer
+    Dim mousey As Integer
 
     
 
 
-    
+
+
+
+
 
 
 
@@ -359,7 +366,7 @@ Public Class Form1
         DisplayReset()
         SetVisibilityOFF()
 
-        
+
 
         ml1 = ""
         ml2 = ""
@@ -373,7 +380,7 @@ Public Class Form1
         ModeKnob.BackgroundImage = My.Resources.KnobCT 'loads knob image in CT position
         knobIndex = 1 'sets the index for CT to 1
 
-        
+
 
         TurnOnCheck() 'checks if the system has just been turned on
 
@@ -381,7 +388,7 @@ Public Class Form1
 
             DisplayVulosPage1()
         End If
-        MyCreateIPboxes()
+        KDUCreateIPboxes()
 
 
     End Sub
@@ -412,7 +419,7 @@ Public Class Form1
 
             DisplayVulosPage1()
         End If
-        MyCreateIPboxes()
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -443,7 +450,7 @@ Public Class Form1
 
             DisplayLoadPage1()
         End If
-        MyCreateIPboxes()
+        KDUCreateIPboxes()
 
 
     End Sub
@@ -468,7 +475,7 @@ Public Class Form1
             AlarmOccurred()
 
         End If
-        MyCreateIPboxes()
+        KDUCreateIPboxes()
 
 
 
@@ -622,8 +629,8 @@ Public Class Form1
 
         End If
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -753,8 +760,8 @@ Public Class Form1
 
         End If
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -896,8 +903,8 @@ Public Class Form1
             ModeMainPage()
         End If
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -1094,8 +1101,8 @@ Public Class Form1
 
         End If
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -1224,13 +1231,13 @@ Public Class Form1
 
             myCount += 1
             lastClick = 5
-            MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-            MyCreateIPboxes()
+            KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+            KDUCreateIPboxes()
             Exit Sub
         End If
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
         If ml1 <> "lock keypad" Then
             MainZeroizeMenu()
@@ -1248,9 +1255,42 @@ Public Class Form1
             Exit Sub
         End If
 
+        thisNum = "6"
+        direction = "up"
+
         Dim confirmation As Boolean = False
 
         If vulosDisplayed = True Then
+            If b1TB.BackColor = Color.Black Then    'added to toggle preset up when textbox is highlighted on VULOS page
+                ShortcutUp()
+                DisplayVulosPage1()
+                SetBackBlack(b1TB)
+                Exit Sub
+            End If
+
+            If c1TB.BackColor = Color.Black Then 'added to toggle TYPE up when textbox is highlighted on VULOS pag
+                ShortcutUp()
+                DisplayVulosPage1()
+                SetBackBlack(c1TB)
+                Exit Sub
+            End If
+
+            If c3TB.BackColor = Color.Black Then 'added to toggle TRAFFIC up when textbox is highlighted on VULOS pag
+                ShortcutUp()
+                DisplayVulosPage1()
+                SetBackBlack(c3TB)
+                Exit Sub
+            End If
+
+            If c4TB.BackColor = Color.Black Then 'added to toggle MOD up when textbox is highlighted on VULOS pag
+                ShortcutUp()
+                DisplayVulosPage1()
+                SetBackBlack(c4TB)
+                Exit Sub
+            End If
+
+            UpdateHighlightedNamebox(direction)
+
             Exit Sub
         End If
 
@@ -1258,8 +1298,7 @@ Public Class Form1
             Exit Sub
         End If
 
-        thisNum = "6"
-        direction = "up"
+
 
         If ml3 = "zeroize haipe" Then
             If c1TB.Text = "TEK" Then
@@ -2583,8 +2622,8 @@ Public Class Form1
         End If
 
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
         HelperUpdate()
     End Sub
@@ -2735,7 +2774,7 @@ Public Class Form1
                 Exit Sub
             End If
 
-            If (ml1 = "program" And ml2 = "") Then
+            If ((ml1 = "network options" Or ml1 = "program") And ml2 = "") Then
                 DisplayVulosPage1()
                 Exit Sub
             End If
@@ -3136,8 +3175,8 @@ Public Class Form1
 
 
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
 
 
@@ -3279,8 +3318,8 @@ Public Class Form1
         End If
 
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -3291,10 +3330,39 @@ Public Class Form1
             Exit Sub
         End If
 
+        thisNum = "9"
+        direction = "down"
+
         Dim confirmation As Boolean = False
 
 
         If vulosDisplayed = True Then
+            If b1TB.BackColor = Color.Black Then    'added to toggle preset down when textbox is highlighted on VULOS page
+                ShortcutDown()
+                DisplayVulosPage1()
+                SetBackBlack(b1TB)
+            End If
+
+            If c1TB.BackColor = Color.Black Then 'added to toggle TYPE down when textbox is highlighted on VULOS pag
+                ShortcutDown()
+                DisplayVulosPage1()
+                SetBackBlack(c1TB)
+            End If
+
+            If c3TB.BackColor = Color.Black Then 'added to toggle TRAFFIC down when textbox is highlighted on VULOS pag
+                ShortcutDown()
+                DisplayVulosPage1()
+                SetBackBlack(c3TB)
+            End If
+
+            If c4TB.BackColor = Color.Black Then 'added to toggle MOD down when textbox is highlighted on VULOS pag
+                ShortcutDown()
+                DisplayVulosPage1()
+                SetBackBlack(c4TB)
+            End If
+
+            UpdateHighlightedNamebox(direction)
+
             Exit Sub
         End If
 
@@ -3302,8 +3370,7 @@ Public Class Form1
             Exit Sub
         End If
 
-        thisNum = "9"
-        direction = "down"
+        
 
         If ml3 = "zeroize haipe" Then
             If c1TB.Text = "TEK" Then
@@ -4630,8 +4697,8 @@ Public Class Form1
 
         HelperUpdate()
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -4777,8 +4844,8 @@ Public Class Form1
             End If
         End If
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -4826,6 +4893,7 @@ Public Class Form1
         End If
 
         If vulosDisplayed = True Then
+            ChangeByToggle()
             Exit Sub
         End If
 
@@ -4929,8 +4997,8 @@ Public Class Form1
             End If
         End If
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
     End Sub
 
@@ -5111,6 +5179,8 @@ Public Class Form1
             Exit Sub
         End If
 
+        
+
 
         'checks if the VULOS 1 page is active
         If vulosDisplayed = True Then
@@ -5134,6 +5204,7 @@ Public Class Form1
 
 
         End If
+
 
 
 
@@ -5231,8 +5302,8 @@ Public Class Form1
 
         End If
 
-        MyCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
-        MyCreateIPboxes()
+        KDUCreateMyNameboxes()   'addedto update the nameboxes on the kdu display
+        KDUCreateIPboxes()
 
 
     End Sub
@@ -5241,12 +5312,13 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
-
         GetInstanceOfProcess()
+
+
 
         senderName = "Form_Load"
 
-        AboutBox1.ShowDialog()
+        'AboutBox1.ShowDialog()
 
         DataSetForm.Show() 'loads the dataset form
         'DataSetForm.Hide()
@@ -5264,14 +5336,17 @@ Public Class Form1
         Readme.Show()
 
         'kdu.Show()
-
-
+        'kdu.KDUregion()
+        
         RecallPreset() 'gets data from the datagridview
         GetMyGlobalData()
 
         CreateTextboxes()
         SetVisibilityOFF()
         ChainGenerate()
+
+        PrcDimmer.Show()
+        PrcDimmer.Location = New Point(Me.Location.X + 392, Me.Location.Y + 173)
 
     End Sub
 
@@ -5354,7 +5429,7 @@ Public Class Form1
         Catch
         End Try
 
-        MyCreateTextBoxes()
+        KDUCreateTextBoxes()
 
 
     End Sub
@@ -5627,7 +5702,11 @@ Public Class Form1
         If storedMod = " " Then
             modBox.Text = "- - -"
         Else
-            modBox.Text = storedMod
+            If storedMod = "MS181" Then
+                modBox.Text = storedOptMod
+            Else
+                modBox.Text = storedMod
+            End If
         End If
         SetWidth(modBox)
 
@@ -5921,6 +6000,64 @@ Public Class Form1
             End If
             ml3 = ""
             Exit Sub
+        End If
+
+        If nameBox1.Created = True And b1TB.Text = "R:" And pageDisplayed = 2 Then
+            If nameBox1.Location.Y = b2TB.Location.Y Then
+
+
+                storedRXfreq = nameBox1.Text + nameBox2.Text + nameBox3.Text + nameBox4.Text + nameBox5.Text + nameBox6.Text + nameBox7.Text + nameBox8.Text
+                nameBox1.Location = New Point(nameBox1.Location.X, c3TB.Location.Y)
+                nameBox2.Location = New Point(nameBox2.Location.X, c3TB.Location.Y)
+                nameBox3.Location = New Point(nameBox3.Location.X, c3TB.Location.Y)
+                nameBox4.Location = New Point(nameBox4.Location.X, c3TB.Location.Y)
+                nameBox5.Location = New Point(nameBox5.Location.X, c3TB.Location.Y)
+                nameBox6.Location = New Point(nameBox6.Location.X, c3TB.Location.Y)
+                nameBox7.Location = New Point(nameBox7.Location.X, c3TB.Location.Y)
+                nameBox8.Location = New Point(nameBox8.Location.X, c3TB.Location.Y)
+                'DisplayNameboxes("TX")
+                SetBackBlack(nameBox1)
+                SetBackBlack(nameBox2)
+                SetBackBlack(nameBox3)
+                SetBackBlack(nameBox4)
+                SetBackBlack(nameBox5)
+                SetBackBlack(nameBox6)
+                SetBackBlack(nameBox7)
+                SetBackBlack(nameBox8)
+                storedTXfreq = nameBox1.Text + nameBox2.Text + nameBox3.Text + nameBox4.Text +
+                    nameBox5.Text + nameBox6.Text + nameBox7.Text + nameBox8.Text
+                c3TB.Text = storedTXfreq
+
+            ElseIf nameBox1.Location.Y = c3TB.Location.Y Then
+                storedTXfreq = nameBox1.Text + nameBox2.Text + nameBox3.Text + nameBox4.Text + nameBox5.Text + nameBox6.Text + nameBox7.Text + nameBox8.Text
+                SetBackGreen(nameBox1)
+                SetBackGreen(nameBox2)
+                SetBackGreen(nameBox3)
+                SetBackGreen(nameBox4)
+                SetBackGreen(nameBox5)
+                SetBackGreen(nameBox6)
+                SetBackGreen(nameBox7)
+                SetBackGreen(nameBox8)
+                nameBox1.Location = New Point(nameBox1.Location.X, b2TB.Location.Y)
+                nameBox2.Location = New Point(nameBox2.Location.X, b2TB.Location.Y)
+                nameBox3.Location = New Point(nameBox3.Location.X, b2TB.Location.Y)
+                nameBox4.Location = New Point(nameBox4.Location.X, b2TB.Location.Y)
+                nameBox5.Location = New Point(nameBox5.Location.X, b2TB.Location.Y)
+                nameBox6.Location = New Point(nameBox6.Location.X, b2TB.Location.Y)
+                nameBox7.Location = New Point(nameBox7.Location.X, b2TB.Location.Y)
+                nameBox8.Location = New Point(nameBox8.Location.X, b2TB.Location.Y)
+
+                nameBox1.Visible = False
+                nameBox2.Visible = False
+                nameBox3.Visible = False
+                nameBox4.Visible = False
+                nameBox5.Visible = False
+                nameBox6.Visible = False
+                nameBox7.Visible = False
+                nameBox8.Visible = False
+
+            End If
+            KDUupdateNameboxes()
         End If
 
         'start ZEROIZE menu selections
@@ -10104,7 +10241,7 @@ Public Class Form1
         digit9.BringToFront()
         digit9.Visible = True
 
-        MyCreateTextBoxes()
+        KDUCreateTextBoxes()
 
     End Sub
 
@@ -10594,6 +10731,27 @@ Public Class Form1
         ip13.Visible = False
         ip14.Visible = False
         ip15.Visible = False
+
+
+        SetBackGreen(nameBox1)
+        SetBackGreen(nameBox2)
+        SetBackGreen(nameBox3)
+        SetBackGreen(nameBox4)
+        SetBackGreen(nameBox5)
+        SetBackGreen(nameBox6)
+        SetBackGreen(nameBox7)
+        SetBackGreen(nameBox8)
+
+        nameBox1.Visible = False
+        nameBox2.Visible = False
+        nameBox3.Visible = False
+        nameBox4.Visible = False
+        nameBox5.Visible = False
+        nameBox6.Visible = False
+        nameBox7.Visible = False
+        nameBox8.Visible = False
+
+
 
         page4TB1.Visible = False
         page4TB2.Visible = False
@@ -12631,7 +12789,7 @@ Public Class Form1
         ip14.Visible = True
         ip15.Visible = True
 
-        MyCreateIPboxes()
+        KDUCreateIPboxes()
 
 
         d1TB.Text = "ENTER IP ADDRESS TO PING"
@@ -12665,7 +12823,7 @@ Public Class Form1
             timeItTakes = 4 'delay time before next screen
         End If
 
-        MyCreateIPboxes()
+        KDUCreateIPboxes()
         MyTimerSetup()
 
         
@@ -13735,7 +13893,7 @@ Public Class Form1
             ElseIf ip15.BackColor = Color.Black Then
                 ip15.Text = numberPushed
             End If
-
+            KDUCreateIPboxes()
         End If
     End Sub
 
@@ -16862,342 +17020,8 @@ Public Class Form1
         End If
 
 
-
-        'initially, the preset number and name will change as the preset up or down button is clicked. Rows C and D on the display will change for two seconds 
-
-        Try
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(0, presetRowNum).Value) = True Then
-                storedNumber = " "
-            Else
-                storedNumber = DataSetForm.PRCtrainerDataGridView.Item(0, presetRowNum).Value 'gets the data from the datagridview on DataSetForm
-            End If
-            b1TB.Text = storedNumber 'assigns value
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(1, presetRowNum).Value) = True Then
-                storedName = " "
-            Else
-                storedName = DataSetForm.PRCtrainerDataGridView.Item(1, presetRowNum).Value 'same as above to assign the data for the stored recall name
-            End If
-            b2TB.Text = storedName 'assigns value
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(2, presetRowNum).Value) = True Then
-                storedType = " "
-            Else
-                storedType = DataSetForm.PRCtrainerDataGridView.Item(2, presetRowNum).Value 'same as above to assign the data for the stored recall type
-            End If
-            c1TB.Text = storedType 'assigns value
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(3, presetRowNum).Value) = True Then
-                storedTraffic = " "
-            Else
-                storedTraffic = DataSetForm.PRCtrainerDataGridView.Item(3, presetRowNum).Value 'same as above to assign the data for the stored recall traffic
-            End If
-            c3TB.Text = storedTraffic 'assigns value
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(4, presetRowNum).Value) = True Then
-                storedMod = " "
-            Else
-                storedMod = DataSetForm.PRCtrainerDataGridView.Item(4, presetRowNum).Value 'same as above to assign the data for the stored recall modulation
-            End If
-            c4TB.Text = storedMod 'assigns value
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(5, presetRowNum).Value) = True Then
-                storedDescription = " "
-            Else
-                storedDescription = DataSetForm.PRCtrainerDataGridView.Item(5, presetRowNum).Value 'same as above to assign the data for the stored recall modulation
-            End If
-
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(6, presetRowNum).Value) = True Then
-                storedRXfreq = " "
-            Else
-                storedRXfreq = DataSetForm.PRCtrainerDataGridView.Item(6, presetRowNum).Value 'same as above to assign the data for the stored recall modulation
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(7, presetRowNum).Value) = True Then
-                storedTXfreq = " "
-            Else
-                storedTXfreq = DataSetForm.PRCtrainerDataGridView.Item(7, presetRowNum).Value 'same as above to assign the data for the stored recall modulation
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(8, presetRowNum).Value) = True Then
-                storedWaveform = " "
-            Else
-                storedWaveform = DataSetForm.PRCtrainerDataGridView.Item(8, presetRowNum).Value 'same as above to assign the data for the stored recall channel
-            End If
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(9, presetRowNum).Value) = True Then
-                storedChannel = " "
-            Else
-                storedChannel = DataSetForm.PRCtrainerDataGridView.Item(9, presetRowNum).Value 'same as above to assign the data for the stored recall channel
-            End If
-            c5TB.Text = storedChannel 'assigns value
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(10, presetRowNum).Value) = True Then
-                storedKey = " "
-            Else
-                storedKey = DataSetForm.PRCtrainerDataGridView.Item(10, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-            c7TB.Text = storedKey 'assigns value
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(11, presetRowNum).Value) = True Then
-                storedOption = " "
-            Else
-                storedOption = DataSetForm.PRCtrainerDataGridView.Item(11, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(12, presetRowNum).Value) = True Then
-                storedBW = " "
-            Else
-                storedBW = DataSetForm.PRCtrainerDataGridView.Item(12, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(13, presetRowNum).Value) = True Then
-                storedBPS = " "
-            Else
-                storedBPS = DataSetForm.PRCtrainerDataGridView.Item(13, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(14, presetRowNum).Value) = True Then
-                storedVoiceMode = " "
-            Else
-                storedVoiceMode = DataSetForm.PRCtrainerDataGridView.Item(14, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(15, presetRowNum).Value) = True Then
-                storedInterleave = " "
-            Else
-                storedInterleave = DataSetForm.PRCtrainerDataGridView.Item(15, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(16, presetRowNum).Value) = True Then
-                storedFWDerror = " "
-            Else
-                storedFWDerror = DataSetForm.PRCtrainerDataGridView.Item(16, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(17, presetRowNum).Value) = True Then
-                storedSquelch = " "
-            Else
-                storedSquelch = DataSetForm.PRCtrainerDataGridView.Item(17, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(18, presetRowNum).Value) = True Then
-                storedCryptoMode = " "
-            Else
-                storedCryptoMode = DataSetForm.PRCtrainerDataGridView.Item(18, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(19, presetRowNum).Value) = True Then
-                storedCryptoKey = " "
-            Else
-                storedCryptoKey = DataSetForm.PRCtrainerDataGridView.Item(19, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(20, presetRowNum).Value) = True Then
-                storedSatcomChannel = " "
-            Else
-                storedSatcomChannel = DataSetForm.PRCtrainerDataGridView.Item(20, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(21, presetRowNum).Value) = True Then
-                storedDataMode = " "
-            Else
-                storedDataMode = DataSetForm.PRCtrainerDataGridView.Item(21, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(22, presetRowNum).Value) = True Then
-                storedFascinatorMode = " "
-            Else
-                storedFascinatorMode = DataSetForm.PRCtrainerDataGridView.Item(22, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(23, presetRowNum).Value) = True Then
-                storedAESmode = " "
-            Else
-                storedAESmode = DataSetForm.PRCtrainerDataGridView.Item(23, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(24, presetRowNum).Value) = True Then
-                storedKG84Mode = " "
-            Else
-                storedKG84Mode = DataSetForm.PRCtrainerDataGridView.Item(24, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(25, presetRowNum).Value) = True Then
-                storedTrainingFrames = " "
-            Else
-                storedTrainingFrames = DataSetForm.PRCtrainerDataGridView.Item(25, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(26, presetRowNum).Value) = True Then
-                storedRXfade = " "
-            Else
-                storedRXfade = DataSetForm.PRCtrainerDataGridView.Item(26, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(27, presetRowNum).Value) = True Then
-                storedAutoswitch = " "
-            Else
-                storedAutoswitch = DataSetForm.PRCtrainerDataGridView.Item(27, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(28, presetRowNum).Value) = True Then
-                storedKeySource = " "
-            Else
-                storedKeySource = DataSetForm.PRCtrainerDataGridView.Item(28, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(29, presetRowNum).Value) = True Then
-                storedCodebook = " "
-            Else
-                storedCodebook = DataSetForm.PRCtrainerDataGridView.Item(29, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(30, presetRowNum).Value) = True Then
-                storedDeviation = " "
-            Else
-                storedDeviation = DataSetForm.PRCtrainerDataGridView.Item(30, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(31, presetRowNum).Value) = True Then
-                storedOptMod = " "
-            Else
-                storedOptMod = DataSetForm.PRCtrainerDataGridView.Item(31, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(32, presetRowNum).Value) = True Then
-                storedTXpower = " "
-            Else
-                storedTXpower = DataSetForm.PRCtrainerDataGridView.Item(32, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(33, presetRowNum).Value) = True Then
-                storedTXpowerDown = " "
-            Else
-                storedTXpowerDown = DataSetForm.PRCtrainerDataGridView.Item(33, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(34, presetRowNum).Value) = True Then
-                manualSquelchSetting = 0
-            Else
-                manualSquelchSetting = DataSetForm.PRCtrainerDataGridView.Item(34, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(35, presetRowNum).Value) = True Then
-                storedCTCSS = " "
-            Else
-                storedCTCSS = DataSetForm.PRCtrainerDataGridView.Item(35, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(36, presetRowNum).Value) = True Then
-                storedCTCSSrx = " "
-            Else
-                storedCTCSSrx = DataSetForm.PRCtrainerDataGridView.Item(36, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(37, presetRowNum).Value) = True Then
-                storedCTCSSuserEntry = " "
-            Else
-                storedCTCSSuserEntry = DataSetForm.PRCtrainerDataGridView.Item(37, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(38, presetRowNum).Value) = True Then
-                storedCTCSSrxUserEntry = " "
-            Else
-                storedCTCSSrxUserEntry = DataSetForm.PRCtrainerDataGridView.Item(38, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(39, presetRowNum).Value) = True Then
-                storedCTCSSrx = " "
-            Else
-                storedCTCSSrx = DataSetForm.PRCtrainerDataGridView.Item(39, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(40, presetRowNum).Value) = True Then
-                storedChannelBusyPriority = " "
-            Else
-                storedChannelBusyPriority = DataSetForm.PRCtrainerDataGridView.Item(40, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(41, presetRowNum).Value) = True Then
-                storedCDCSStxCode = " "
-            Else
-                storedCDCSStxCode = DataSetForm.PRCtrainerDataGridView.Item(41, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(42, presetRowNum).Value) = True Then
-                storedCDCSSrxCode = " "
-            Else
-                storedCDCSSrxCode = DataSetForm.PRCtrainerDataGridView.Item(42, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(43, presetRowNum).Value) = True Then
-                storedVinsonCompatibility = " "
-            Else
-                storedVinsonCompatibility = DataSetForm.PRCtrainerDataGridView.Item(43, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(44, presetRowNum).Value) = True Then
-                storedBeaconFreq = " "
-            Else
-                storedBeaconFreq = DataSetForm.PRCtrainerDataGridView.Item(44, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(45, presetRowNum).Value) = True Then
-                storedBeaconMod = " "
-            Else
-                storedBeaconMod = DataSetForm.PRCtrainerDataGridView.Item(45, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(46, presetRowNum).Value) = True Then
-                storedBeaconTxDuration = " "
-            Else
-                storedBeaconTxDuration = DataSetForm.PRCtrainerDataGridView.Item(46, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(47, presetRowNum).Value) = True Then
-                storedBeaconOffDuration = " "
-            Else
-                storedBeaconOffDuration = DataSetForm.PRCtrainerDataGridView.Item(47, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(48, presetRowNum).Value) = True Then
-                storedBeaconTxPower = " "
-            Else
-                storedBeaconTxPower = DataSetForm.PRCtrainerDataGridView.Item(48, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(49, presetRowNum).Value) = True Then
-                storedSpare = " "
-            Else
-                storedSpare = DataSetForm.PRCtrainerDataGridView.Item(49, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(50, presetRowNum).Value) = True Then
-                storedInScanList = " "
-            Else
-                storedInScanList = DataSetForm.PRCtrainerDataGridView.Item(50, presetRowNum).Value 'same as above to assign the data for the stored recall key
-            End If
-
-            'RecallOptions() 'gets the Options table data
-
-            GetMyGlobalData() 'recalls the data from the global table
-
-        Catch
-
-        End Try
+        GetPresetItems()
+        
 
         If ml3 = "system preset number" Or ml3 = "add scan list" Then
             Exit Sub
@@ -17282,15 +17106,17 @@ Public Class Form1
     End Sub
 
     Private Sub BacklightOff()
-        light = 0 'sets the light variable to OFF
-        mycolor = Color.ForestGreen
+        PrcDimmer.Opacity = 0.5
+        KduDimmer.Opacity = 0.5
+        light = 0
 
 
     End Sub
 
     Private Sub BacklightOn()
-        light = 1 'sets the light variable to ON
-        mycolor = Color.MediumSeaGreen
+        PrcDimmer.Opacity = 0.0
+        KduDimmer.Opacity = 0.0
+        light = 1
         
 
 
@@ -19054,7 +18880,7 @@ Public Class Form1
     Private Sub SetNumberFromKeypad(thisNum As String)
         GetHighlightedNamebox()
         highlightedNameBox.Text = thisNum
-        MyCreateMyNameboxes()
+        KDUCreateMyNameboxes()
     End Sub
 
     Private Sub BreakApartFrequency(i As String)
@@ -19082,6 +18908,10 @@ Public Class Form1
         nameBox6.Text = GetChar(i, 6)
         nameBox7.Text = GetChar(i, 7)
         nameBox8.Text = GetChar(i, 8)
+
+        If vulosDisplayed = True Then
+            Exit Sub
+        End If
 
         DescriptionEntry()
         c1TB.Location = New Point(b1TB.Location.X + 20, c1TB.Location.Y)
@@ -23317,7 +23147,7 @@ Public Class Form1
         b7PB.Location = New Point(612, 161)
         b7PB.Visible = True
 
-        
+        KDUCreateIPboxes()
 
         NewScrollbar(2)
         JustificationAndSetWidth()
@@ -23755,6 +23585,8 @@ Public Class Form1
         ip14.Visible = True
         ip15.Visible = True
 
+        KDUCreateIPboxes()
+
 
         d1TB.Text = "ENTER IP ADDRESS"
         SetWidth(d1TB)
@@ -23819,6 +23651,8 @@ Public Class Form1
         ip14.Visible = True
         ip15.Visible = True
 
+        KDUCreateIPboxes()
+
 
         d1TB.Text = "ENTER PEER IP ADDRESS"
         SetWidth(d1TB)
@@ -23882,6 +23716,8 @@ Public Class Form1
         ip13.Visible = True
         ip14.Visible = True
         ip15.Visible = True
+
+        KDUCreateIPboxes()
 
 
         d1TB.Text = "ENTER SUBNET MASK"
@@ -24136,6 +23972,8 @@ Public Class Form1
         ip13.Visible = True
         ip14.Visible = True
         ip15.Visible = True
+
+        KDUCreateIPboxes()
 
 
         d1TB.Text = "ENTER GATEWAY ADDRESS"
@@ -25773,7 +25611,7 @@ Public Class Form1
             result = False
         End If
 
-        MyCreateIPboxes()
+        KDUCreateIPboxes()
         Return result
     End Function
 
@@ -26368,7 +26206,7 @@ Public Class Form1
         nameBox10.Text = "*"
         nameBox11.Text = "*"
         nameBox12.Text = "*"
-        MyCreateMyNameboxes()
+        KDUCreateMyNameboxes()
         ml3 = "maintenance password"
         HelperUpdate()
     End Sub
@@ -27199,7 +27037,7 @@ Public Class Form1
         kdu.d7TB.Text = d7TB.Text
 
         MyImageUpdated()
-        MyCreateMyNameboxes()
+        KDUCreateMyNameboxes()
 
     End Sub
 
@@ -27372,7 +27210,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub MyCreateTextBoxes()
+    Private Sub KDUCreateTextBoxes()
 
 
         kdu.digit1.Location = New Point(digit1.Location.X - xfactor, digit1.Location.Y - yfactor)
@@ -27478,7 +27316,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub MyCreateIPboxes()
+    Private Sub KDUCreateIPboxes()
 
         kdu.ip1.Location = New Point(ip1.Location.X - xfactor, ip1.Location.Y - yfactor)
         kdu.ip1.Font = ip1.Font()
@@ -27651,7 +27489,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub MyCreateMyNameboxes()
+    Private Sub KDUCreateMyNameboxes()
 
         kdu.namebox1.Location = New Point(nameBox1.Location.X - xfactor, nameBox1.Location.Y - yfactor)
         kdu.namebox1.Font = nameBox1.Font
@@ -27873,7 +27711,7 @@ Public Class Form1
         kdu.namebox20.Visible = nameBox20.Visible
         kdu.namebox20.BringToFront()
 
-        MyCreateTextBoxes()
+        KDUCreateTextBoxes()
 
     End Sub
 
@@ -27912,7 +27750,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub KDUToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KDUToolStripMenuItem.Click
+    Private Sub KDUToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         If kdu.Visible = False Then
             kdu.Visible = True
@@ -27987,8 +27825,1085 @@ Public Class Form1
         ip14.Visible = False
         ip15.Visible = False
 
-        MyCreateIPboxes()
+        KDUCreateIPboxes()
 
     End Sub
 
+    Private Sub ChangeByToggle()
+        'check which VULOS page is displayed
+        If vulosDisplayed = True Then
+            ToggleThrough(pageDisplayed)
+        End If
+    End Sub
+
+    Private Sub ToggleThrough(pageDisplayed As Integer)
+        
+        'highlight the correct item
+        Select Case pageDisplayed
+            Case 1
+                DetermineBackColor(b1TB, c1TB, c3TB, c4TB)
+            Case 2
+                Page2Management()
+
+            Case 3
+            Case 4
+                Exit Select
+        End Select
+        
+    End Sub
+
+    Private Sub DetermineBackColor(textBox As TextBox, textBox1 As TextBox, textBox2 As TextBox, textBox3 As TextBox)
+
+        If textBox.BackColor <> Color.Black And textBox1.BackColor <> Color.Black And textBox2.BackColor <> Color.Black And textBox3.BackColor <> Color.Black Then
+            SetBackBlack(b1TB)
+        ElseIf textBox.BackColor = Color.Black Then
+            SetBackBlack(c1TB)
+            SetBackGreen(b1TB)
+        ElseIf textBox1.BackColor = Color.Black Then
+            SetBackBlack(c3TB)
+            SetBackGreen(c1TB)
+        ElseIf textBox2.BackColor = Color.Black Then
+            SetBackBlack(c4TB)
+            SetBackGreen(c3TB)
+        ElseIf textBox3.BackColor = Color.Black Then
+            SetBackBlack(b1TB)
+            SetBackGreen(c4TB)
+
+
+        End If
+    End Sub
+
+    
+    Private Sub moveBtn_MouseDown(sender As Object, e As MouseEventArgs) Handles moveBtn.MouseDown
+        drag = True
+        mousex = Windows.Forms.Cursor.Position.X - Me.Left
+        mousey = Windows.Forms.Cursor.Position.X - Me.Top
+    End Sub
+
+    Private Sub moveBtn_MouseMove(sender As Object, e As MouseEventArgs) Handles moveBtn.MouseMove
+        If drag Then
+            Me.Top = Windows.Forms.Cursor.Position.Y - 515
+            Me.Left = Windows.Forms.Cursor.Position.X - mousex
+        End If
+    End Sub
+
+    Private Sub moveBtn_MouseUp(sender As Object, e As MouseEventArgs) Handles moveBtn.MouseUp
+        drag = False
+    End Sub
+
+    Public Sub SetRegion()
+
+        'create shaped form
+        Dim myForm(27) As Point
+
+        myForm(0) = New Point(10, 128)
+        myForm(1) = New Point(14, 118)
+        myForm(2) = New Point(40, 100)
+
+        myForm(3) = New Point(50, 98)
+        myForm(4) = New Point(115, 98) 'vertical bottom reference on GPS antenna
+        myForm(5) = New Point(115, 61) 'vertical top reference on GPS antenna
+        myForm(6) = New Point(477, 61) 'upper point on GPS antenna that slopes down
+        myForm(7) = New Point(500, 98) 'lower point on GPS antenna slope
+
+
+
+        myForm(8) = New Point(900, 98) 'right handle top
+        myForm(9) = New Point(907, 100)
+        myForm(10) = New Point(919, 110)
+        myForm(11) = New Point(928, 118)
+        myForm(12) = New Point(935, 130)
+
+
+        myForm(13) = New Point(935, 350) 'right handle bottom
+        myForm(14) = New Point(933, 360)
+        myForm(15) = New Point(911, 385)
+        myForm(16) = New Point(892, 391)
+
+        myForm(17) = New Point(858, 391) 'bottom right vertical
+        myForm(18) = New Point(858, 526) 'bottom right vertical
+        myForm(19) = New Point(93, 526) 'long bottom run
+        myForm(20) = New Point(93, 392)
+        myForm(21) = New Point(50, 392)
+        myForm(22) = New Point(32, 385)
+        myForm(23) = New Point(22, 375)
+        myForm(24) = New Point(14, 365)
+        myForm(25) = New Point(10, 354)
+        myForm(26) = New Point(10, 128)
+
+        Dim myGraphicsForm As GraphicsPath = New GraphicsPath
+
+        myGraphicsForm.AddPolygon(myForm)
+
+        Me.Region = New Region(myGraphicsForm)
+
+
+        closeBtn.Visible = True
+        moveBtn.Visible = True
+
+
+    End Sub
+
+    Private Sub closeBtn_Click(sender As Object, e As EventArgs) Handles closeBtn.Click
+        Me.Close()
+    End Sub
+
+    Private Sub ShortcutUp()
+        'iterates through the presets in a VULOS page
+        If b1TB.BackColor = Color.Black And ((b1TB.Text.IndexOf(dash) <> -1) Or (c1TB.Text.IndexOf(dash) <> -1)) Then 'looks for a - in the b1TB
+            If presetRowNum <= 97 Then
+                presetRowNum += 1
+            Else
+                presetRowNum = 0
+            End If
+            GetPresetItems()
+        End If
+        'end iterates
+
+        'iterates through the possible type selections
+        If c1TB.BackColor = Color.Black Then
+            If c1TB.Text = "LOS" Then
+                c1TB.Text = "SATCOM"
+            Else
+                c1TB.Text = "LOS"
+            End If
+            storedType = c1TB.Text
+
+            DataSetForm.PRCtrainerDataGridView.Item(2, presetRowNum).Value = storedType
+            DataSetForm.UpdateDB()
+        End If
+
+        'iterates through the possible traffic selections
+        If c3TB.BackColor = Color.Black Then
+            Select Case storedCryptoMode
+
+                Case "NONE"
+                    If storedTraffic = "VOICE" Then
+                        storedTraffic = "DATA"
+                    Else
+                        storedTraffic = "VOICE"
+                    End If
+
+                Case "ANDVT"
+                    If storedTraffic = "DATA" Then
+                        storedTraffic = "VOICE AND DATA"
+                    Else
+                        storedTraffic = "DATA"
+                    End If
+
+                Case "VINSON"
+                    If storedTraffic = "VOICE AND DATA" Then
+                        storedTraffic = "VOICE"
+                    ElseIf storedTraffic = "VOICE" Then
+                        storedTraffic = "DATA"
+                    ElseIf storedTraffic = "DATA" Then
+                        storedTraffic = "VOICE AND DATA"
+                    End If
+
+                Case "AES"
+                    If storedTraffic = "VOICE" Then
+                        storedTraffic = "DATA"
+                    Else
+                        storedTraffic = "VOICE"
+                    End If
+            End Select
+
+            DataSetForm.PRCtrainerDataGridView.Item(3, presetRowNum).Value = storedTraffic
+            DataSetForm.UpdateDB()
+
+        End If
+
+        'iterates through the possible modulation selections
+        If c4TB.BackColor = Color.Black Then
+            If c4TB.Text = "AM" Then
+                c4TB.Text = "FM"
+                storedMod = c4TB.Text
+            ElseIf c4TB.Text = "FM" Then
+                If storedCryptoMode = "AES" Or storedCryptoMode = "NONE" Then
+                    c4TB.Text = "AM"
+                    storedMod = c4TB.Text
+                Else
+                    c4TB.Text = "MS181"
+                    storedMod = c4TB.Text
+                End If
+
+            
+            End If
+
+
+            If c4TB.Text = "MS181" Then
+                storedOptMod = "FSK"
+                'c4TB.Text = storedOptMod
+            ElseIf c4TB.Text = "FSK" Then
+                storedOptMod = "ASK"
+                'c4TB.Text = storedOptMod
+            ElseIf c4TB.Text = "ASK" Then
+                storedMod = "FM"
+                'c4TB.Text = storedOptMod
+            End If
+
+            DataSetForm.PRCtrainerDataGridView.Item(4, presetRowNum).Value = storedMod
+            DataSetForm.PRCtrainerDataGridView.Item(31, presetRowNum).Value = storedOptMod
+            DataSetForm.UpdateDB()
+        End If
+
+
+    End Sub
+
+    Private Sub ShortcutDown()
+        'iterates through the presets
+        If b1TB.BackColor = Color.Black And ((b1TB.Text.IndexOf(dash) <> -1) Or (c1TB.Text.IndexOf(dash) <> -1)) Then 'looks for a - in the b1TB
+            If presetRowNum >= 1 Then
+                presetRowNum -= 1
+            Else
+                presetRowNum = 98
+            End If
+            GetPresetItems()
+
+        End If
+        'end iterates
+
+        'iterates through the possible type selections
+        If c1TB.BackColor = Color.Black Then
+            If c1TB.Text = "LOS" Then
+                c1TB.Text = "SATCOM"
+                
+            Else
+                c1TB.Text = "LOS"
+                
+            End If
+            storedType = c1TB.Text
+
+            DataSetForm.PRCtrainerDataGridView.Item(2, presetRowNum).Value = storedType
+            DataSetForm.UpdateDB()
+        End If
+
+        'iterates through the possible traffic selections
+        If c3TB.BackColor = Color.Black Then
+            Select Case storedCryptoMode
+
+                Case "NONE"
+                    If storedTraffic = "VOICE" Then
+                        storedTraffic = "DATA"
+                    Else
+                        storedTraffic = "VOICE"
+                    End If
+
+                Case "ANDVT"
+                    If storedTraffic = "DATA" Then
+                        storedTraffic = "VOICE AND DATA"
+                    Else
+                        storedTraffic = "DATA"
+                    End If
+
+                Case "VINSON"
+                    If storedTraffic = "VOICE AND DATA" Then
+                        storedTraffic = "VOICE"
+                    ElseIf storedTraffic = "VOICE" Then
+                        storedTraffic = "DATA"
+                    ElseIf storedTraffic = "DATA" Then
+                        storedTraffic = "VOICE AND DATA"
+                    End If
+
+                Case "AES"
+                    If storedTraffic = "VOICE" Then
+                        storedTraffic = "DATA"
+                    Else
+                        storedTraffic = "VOICE"
+                    End If
+            End Select
+
+            DataSetForm.PRCtrainerDataGridView.Item(3, presetRowNum).Value = storedTraffic
+            DataSetForm.UpdateDB()
+
+        End If
+
+        'iterates through the possible modulation selections
+        If c4TB.BackColor = Color.Black Then
+            If c4TB.Text = "AM" Then
+                c4TB.Text = "FM"
+                storedMod = c4TB.Text
+            ElseIf c4TB.Text = "FM" Then
+                If storedCryptoMode = "AES" Or storedCryptoMode = "NONE" Then
+                    c4TB.Text = "AM"
+                    storedMod = c4TB.Text
+                Else
+                    c4TB.Text = "MS181"
+                    storedMod = c4TB.Text
+                End If
+
+
+            End If
+
+
+            If c4TB.Text = "MS181" Then
+                storedOptMod = "FSK"
+                'c4TB.Text = storedOptMod
+            ElseIf c4TB.Text = "FSK" Then
+                storedOptMod = "ASK"
+                'c4TB.Text = storedOptMod
+            ElseIf c4TB.Text = "ASK" Then
+                storedMod = "FM"
+                'c4TB.Text = storedOptMod
+            End If
+
+            DataSetForm.PRCtrainerDataGridView.Item(4, presetRowNum).Value = storedMod
+            DataSetForm.PRCtrainerDataGridView.Item(31, presetRowNum).Value = storedOptMod
+            DataSetForm.UpdateDB()
+        End If
+
+    End Sub
+
+    Private Sub GetPresetItems()
+        
+        Try
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(0, presetRowNum).Value) = True Then
+                storedNumber = " "
+            Else
+                storedNumber = DataSetForm.PRCtrainerDataGridView.Item(0, presetRowNum).Value 'gets the data from the datagridview on DataSetForm
+            End If
+            b1TB.Text = storedNumber 'assigns value
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(1, presetRowNum).Value) = True Then
+                storedName = " "
+            Else
+                storedName = DataSetForm.PRCtrainerDataGridView.Item(1, presetRowNum).Value 'same as above to assign the data for the stored recall name
+            End If
+            b2TB.Text = storedName 'assigns value
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(2, presetRowNum).Value) = True Then
+                storedType = " "
+            Else
+                storedType = DataSetForm.PRCtrainerDataGridView.Item(2, presetRowNum).Value 'same as above to assign the data for the stored recall type
+            End If
+            c1TB.Text = storedType 'assigns value
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(3, presetRowNum).Value) = True Then
+                storedTraffic = " "
+            Else
+                storedTraffic = DataSetForm.PRCtrainerDataGridView.Item(3, presetRowNum).Value 'same as above to assign the data for the stored recall traffic
+            End If
+            c3TB.Text = storedTraffic 'assigns value
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(4, presetRowNum).Value) = True Then
+                storedMod = " "
+            Else
+                storedMod = DataSetForm.PRCtrainerDataGridView.Item(4, presetRowNum).Value 'same as above to assign the data for the stored recall modulation
+            End If
+            c4TB.Text = storedMod 'assigns value
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(5, presetRowNum).Value) = True Then
+                storedDescription = " "
+            Else
+                storedDescription = DataSetForm.PRCtrainerDataGridView.Item(5, presetRowNum).Value 'same as above to assign the data for the stored recall modulation
+            End If
+
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(6, presetRowNum).Value) = True Then
+                storedRXfreq = " "
+            Else
+                storedRXfreq = DataSetForm.PRCtrainerDataGridView.Item(6, presetRowNum).Value 'same as above to assign the data for the stored recall modulation
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(7, presetRowNum).Value) = True Then
+                storedTXfreq = " "
+            Else
+                storedTXfreq = DataSetForm.PRCtrainerDataGridView.Item(7, presetRowNum).Value 'same as above to assign the data for the stored recall modulation
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(8, presetRowNum).Value) = True Then
+                storedWaveform = " "
+            Else
+                storedWaveform = DataSetForm.PRCtrainerDataGridView.Item(8, presetRowNum).Value 'same as above to assign the data for the stored recall channel
+            End If
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(9, presetRowNum).Value) = True Then
+                storedChannel = " "
+            Else
+                storedChannel = DataSetForm.PRCtrainerDataGridView.Item(9, presetRowNum).Value 'same as above to assign the data for the stored recall channel
+            End If
+            c5TB.Text = storedChannel 'assigns value
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(10, presetRowNum).Value) = True Then
+                storedKey = " "
+            Else
+                storedKey = DataSetForm.PRCtrainerDataGridView.Item(10, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+            c7TB.Text = storedKey 'assigns value
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(11, presetRowNum).Value) = True Then
+                storedOption = " "
+            Else
+                storedOption = DataSetForm.PRCtrainerDataGridView.Item(11, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(12, presetRowNum).Value) = True Then
+                storedBW = " "
+            Else
+                storedBW = DataSetForm.PRCtrainerDataGridView.Item(12, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(13, presetRowNum).Value) = True Then
+                storedBPS = " "
+            Else
+                storedBPS = DataSetForm.PRCtrainerDataGridView.Item(13, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(14, presetRowNum).Value) = True Then
+                storedVoiceMode = " "
+            Else
+                storedVoiceMode = DataSetForm.PRCtrainerDataGridView.Item(14, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(15, presetRowNum).Value) = True Then
+                storedInterleave = " "
+            Else
+                storedInterleave = DataSetForm.PRCtrainerDataGridView.Item(15, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(16, presetRowNum).Value) = True Then
+                storedFWDerror = " "
+            Else
+                storedFWDerror = DataSetForm.PRCtrainerDataGridView.Item(16, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(17, presetRowNum).Value) = True Then
+                storedSquelch = " "
+            Else
+                storedSquelch = DataSetForm.PRCtrainerDataGridView.Item(17, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(18, presetRowNum).Value) = True Then
+                storedCryptoMode = " "
+            Else
+                storedCryptoMode = DataSetForm.PRCtrainerDataGridView.Item(18, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(19, presetRowNum).Value) = True Then
+                storedCryptoKey = " "
+            Else
+                storedCryptoKey = DataSetForm.PRCtrainerDataGridView.Item(19, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(20, presetRowNum).Value) = True Then
+                storedSatcomChannel = " "
+            Else
+                storedSatcomChannel = DataSetForm.PRCtrainerDataGridView.Item(20, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(21, presetRowNum).Value) = True Then
+                storedDataMode = " "
+            Else
+                storedDataMode = DataSetForm.PRCtrainerDataGridView.Item(21, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(22, presetRowNum).Value) = True Then
+                storedFascinatorMode = " "
+            Else
+                storedFascinatorMode = DataSetForm.PRCtrainerDataGridView.Item(22, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(23, presetRowNum).Value) = True Then
+                storedAESmode = " "
+            Else
+                storedAESmode = DataSetForm.PRCtrainerDataGridView.Item(23, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(24, presetRowNum).Value) = True Then
+                storedKG84Mode = " "
+            Else
+                storedKG84Mode = DataSetForm.PRCtrainerDataGridView.Item(24, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(25, presetRowNum).Value) = True Then
+                storedTrainingFrames = " "
+            Else
+                storedTrainingFrames = DataSetForm.PRCtrainerDataGridView.Item(25, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(26, presetRowNum).Value) = True Then
+                storedRXfade = " "
+            Else
+                storedRXfade = DataSetForm.PRCtrainerDataGridView.Item(26, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(27, presetRowNum).Value) = True Then
+                storedAutoswitch = " "
+            Else
+                storedAutoswitch = DataSetForm.PRCtrainerDataGridView.Item(27, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(28, presetRowNum).Value) = True Then
+                storedKeySource = " "
+            Else
+                storedKeySource = DataSetForm.PRCtrainerDataGridView.Item(28, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(29, presetRowNum).Value) = True Then
+                storedCodebook = " "
+            Else
+                storedCodebook = DataSetForm.PRCtrainerDataGridView.Item(29, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(30, presetRowNum).Value) = True Then
+                storedDeviation = " "
+            Else
+                storedDeviation = DataSetForm.PRCtrainerDataGridView.Item(30, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(31, presetRowNum).Value) = True Then
+                storedOptMod = " "
+            Else
+                storedOptMod = DataSetForm.PRCtrainerDataGridView.Item(31, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(32, presetRowNum).Value) = True Then
+                storedTXpower = " "
+            Else
+                storedTXpower = DataSetForm.PRCtrainerDataGridView.Item(32, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(33, presetRowNum).Value) = True Then
+                storedTXpowerDown = " "
+            Else
+                storedTXpowerDown = DataSetForm.PRCtrainerDataGridView.Item(33, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(34, presetRowNum).Value) = True Then
+                manualSquelchSetting = 0
+            Else
+                manualSquelchSetting = DataSetForm.PRCtrainerDataGridView.Item(34, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(35, presetRowNum).Value) = True Then
+                storedCTCSS = " "
+            Else
+                storedCTCSS = DataSetForm.PRCtrainerDataGridView.Item(35, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(36, presetRowNum).Value) = True Then
+                storedCTCSSrx = " "
+            Else
+                storedCTCSSrx = DataSetForm.PRCtrainerDataGridView.Item(36, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(37, presetRowNum).Value) = True Then
+                storedCTCSSuserEntry = " "
+            Else
+                storedCTCSSuserEntry = DataSetForm.PRCtrainerDataGridView.Item(37, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(38, presetRowNum).Value) = True Then
+                storedCTCSSrxUserEntry = " "
+            Else
+                storedCTCSSrxUserEntry = DataSetForm.PRCtrainerDataGridView.Item(38, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(39, presetRowNum).Value) = True Then
+                storedCTCSSrx = " "
+            Else
+                storedCTCSSrx = DataSetForm.PRCtrainerDataGridView.Item(39, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(40, presetRowNum).Value) = True Then
+                storedChannelBusyPriority = " "
+            Else
+                storedChannelBusyPriority = DataSetForm.PRCtrainerDataGridView.Item(40, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(41, presetRowNum).Value) = True Then
+                storedCDCSStxCode = " "
+            Else
+                storedCDCSStxCode = DataSetForm.PRCtrainerDataGridView.Item(41, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(42, presetRowNum).Value) = True Then
+                storedCDCSSrxCode = " "
+            Else
+                storedCDCSSrxCode = DataSetForm.PRCtrainerDataGridView.Item(42, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(43, presetRowNum).Value) = True Then
+                storedVinsonCompatibility = " "
+            Else
+                storedVinsonCompatibility = DataSetForm.PRCtrainerDataGridView.Item(43, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(44, presetRowNum).Value) = True Then
+                storedBeaconFreq = " "
+            Else
+                storedBeaconFreq = DataSetForm.PRCtrainerDataGridView.Item(44, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(45, presetRowNum).Value) = True Then
+                storedBeaconMod = " "
+            Else
+                storedBeaconMod = DataSetForm.PRCtrainerDataGridView.Item(45, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(46, presetRowNum).Value) = True Then
+                storedBeaconTxDuration = " "
+            Else
+                storedBeaconTxDuration = DataSetForm.PRCtrainerDataGridView.Item(46, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(47, presetRowNum).Value) = True Then
+                storedBeaconOffDuration = " "
+            Else
+                storedBeaconOffDuration = DataSetForm.PRCtrainerDataGridView.Item(47, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(48, presetRowNum).Value) = True Then
+                storedBeaconTxPower = " "
+            Else
+                storedBeaconTxPower = DataSetForm.PRCtrainerDataGridView.Item(48, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(49, presetRowNum).Value) = True Then
+                storedSpare = " "
+            Else
+                storedSpare = DataSetForm.PRCtrainerDataGridView.Item(49, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            If IsDBNull(DataSetForm.PRCtrainerDataGridView.Item(50, presetRowNum).Value) = True Then
+                storedInScanList = " "
+            Else
+                storedInScanList = DataSetForm.PRCtrainerDataGridView.Item(50, presetRowNum).Value 'same as above to assign the data for the stored recall key
+            End If
+
+            'RecallOptions() 'gets the Options table data
+
+            GetMyGlobalData() 'recalls the data from the global table
+
+        Catch
+
+        End Try
+    End Sub
+
+    Private Sub Page2Management()
+
+        'makes all the changes to VULOSpage 2 when editing frequencies directly from this page
+        If nameBox1.Created = True Then
+            If nameBox1.Location.Y = b1TB.Location.Y Then
+                BreakApartFrequency(storedRXfreq)
+            Else
+                BreakApartFrequency(storedTXfreq)
+            End If
+        Else
+            BreakApartFrequency(storedRXfreq)
+        End If
+
+        DisplayNameboxes()
+        MoveBackColor(nameBox1, nameBox2, nameBox3, nameBox4, nameBox5, nameBox6, nameBox7, nameBox8)
+        KDUupdateNameboxes()
+    End Sub
+
+    Private Sub MoveBackColor(nb1 As TextBox, nb2 As TextBox, nb3 As TextBox, nb4 As TextBox, nb5 As TextBox, nb6 As TextBox, nb7 As TextBox, nb8 As TextBox)
+
+        If (nb1.BackColor = Color.Black And nb2.BackColor = Color.Black And nb3.BackColor = Color.Black And nb4.BackColor = Color.Black And nb5.BackColor = Color.Black And nb6.BackColor = Color.Black And nb7.BackColor = Color.Black And nb8.BackColor = Color.Black) Then
+            SetBackBlack(nameBox1)
+            SetBackGreen(nameBox2)
+            SetBackGreen(nameBox3)
+            SetBackGreen(nameBox4)
+            SetBackGreen(nameBox5)
+            SetBackGreen(nameBox6)
+            SetBackGreen(nameBox7)
+            SetBackGreen(nameBox8)
+            Exit Sub
+        End If
+
+        If (nb1.BackColor <> Color.Black And nb2.BackColor <> Color.Black And nb3.BackColor <> Color.Black And nb4.BackColor <> Color.Black And nb5.BackColor <> Color.Black And nb6.BackColor <> Color.Black And nb7.BackColor <> Color.Black And nb8.BackColor <> Color.Black) Then
+
+            If nameBox1.Location.X = c3TB.Location.X Then
+                nameBox1.Location = New Point(nameBox1.Location.X, b2TB.Location.Y)
+                nameBox2.Location = New Point(nameBox2.Location.X, b2TB.Location.Y)
+                nameBox3.Location = New Point(nameBox3.Location.X, b2TB.Location.Y)
+                nameBox4.Location = New Point(nameBox4.Location.X, b2TB.Location.Y)
+                nameBox5.Location = New Point(nameBox5.Location.X, b2TB.Location.Y)
+                nameBox6.Location = New Point(nameBox6.Location.X, b2TB.Location.Y)
+                nameBox7.Location = New Point(nameBox7.Location.X, b2TB.Location.Y)
+                nameBox8.Location = New Point(nameBox8.Location.X, b2TB.Location.Y)
+                SetBackBlack(nameBox1)
+                SetBackGreen(nameBox2)
+                SetBackGreen(nameBox3)
+                SetBackGreen(nameBox4)
+                SetBackGreen(nameBox5)
+                SetBackGreen(nameBox6)
+                SetBackGreen(nameBox7)
+                SetBackGreen(nameBox8)
+            End If
+
+            SetBackBlack(nameBox1)
+
+        ElseIf nb1.BackColor = Color.Black Then
+            SetBackGreen(nameBox1)
+            SetBackBlack(nameBox2)
+
+        ElseIf nb2.BackColor = Color.Black Then
+            SetBackGreen(nameBox2)
+            SetBackBlack(nameBox3)
+
+        ElseIf nb3.BackColor = Color.Black Then
+            SetBackGreen(nameBox3)
+            SetBackBlack(nameBox5)
+
+        ElseIf nb5.BackColor = Color.Black Then
+            SetBackGreen(nameBox5)
+            SetBackBlack(nameBox6)
+
+        ElseIf nb6.BackColor = Color.Black Then
+            SetBackGreen(nameBox6)
+            SetBackBlack(nameBox7)
+
+        ElseIf nb7.BackColor = Color.Black Then
+            SetBackGreen(nameBox7)
+            SetBackBlack(nameBox8)
+
+        End If
+
+
+
+
+    End Sub
+
+    Private Sub DisplayNameboxes()
+
+        If nameBox1.Created = True Then
+
+            If nameBox1.Visible = False Then
+
+
+                'set location and nb1 black here
+                If nameBox1.Location.Y = c3TB.Location.Y Then
+                    'nameBox1.Location = New Point(nameBox1.Location.X, b2TB.Location.Y)
+                    'nameBox2.Location = New Point(nameBox2.Location.X, b2TB.Location.Y)
+                    'nameBox3.Location = New Point(nameBox3.Location.X, b2TB.Location.Y)
+                    'nameBox4.Location = New Point(nameBox4.Location.X, b2TB.Location.Y)
+                    'nameBox5.Location = New Point(nameBox5.Location.X, b2TB.Location.Y)
+                    'nameBox6.Location = New Point(nameBox6.Location.X, b2TB.Location.Y)
+                    'nameBox7.Location = New Point(nameBox7.Location.X, b2TB.Location.Y)
+                    'nameBox8.Location = New Point(nameBox8.Location.X, b2TB.Location.Y)
+                    nameBox1.Visible = True
+                    nameBox2.Visible = True
+                    nameBox3.Visible = True
+                    nameBox4.Visible = True
+                    nameBox5.Visible = True
+                    nameBox6.Visible = True
+                    nameBox7.Visible = True
+                    nameBox8.Visible = True
+
+                    
+
+                    Exit Sub
+                ElseIf nameBox1.Location.Y = b2TB.Location.Y Then
+                    nameBox1.Visible = True
+                    nameBox2.Visible = True
+                    nameBox3.Visible = True
+                    nameBox4.Visible = True
+                    nameBox5.Visible = True
+                    nameBox6.Visible = True
+                    nameBox7.Visible = True
+                    nameBox8.Visible = True
+
+                    
+                    Exit Sub
+                End If
+                
+
+                SetBackBlack(nameBox1)
+            End If
+
+
+            Exit Sub
+        End If
+
+        nameBox1.Visible = False
+        nameBox2.Visible = False
+        nameBox3.Visible = False
+        nameBox4.Visible = False
+        nameBox5.Visible = False
+        nameBox6.Visible = False
+        nameBox7.Visible = False
+        nameBox8.Visible = False
+
+
+        Me.Controls.Add(nameBox1)
+        Me.Controls.Add(nameBox2)
+        Me.Controls.Add(nameBox3)
+        Me.Controls.Add(nameBox4)
+        Me.Controls.Add(nameBox5)
+        Me.Controls.Add(nameBox6)
+        Me.Controls.Add(nameBox7)
+        Me.Controls.Add(nameBox8)
+
+        'sets the location of the textboxes
+        Dim vertLoc As Integer
+
+        vertLoc = b2TB.Location.Y
+
+
+
+
+        Dim widthX As Integer = 4
+
+
+        'sets the color of the boxes and show them
+        nameBox1.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+        nameBox1.TextAlign = HorizontalAlignment.Center
+        nameBox1.ForeColor = Color.Black
+        nameBox1.BorderStyle = BorderStyle.None
+        nameBox1.BackColor = Color.MediumSeaGreen
+        SetWidth(nameBox1)
+        nameBox1.Width -= widthX
+        nameBox1.Location = New Point(b2TB.Location.X, vertLoc)
+        nameBox1.BringToFront()
+
+        nameBox2.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+        nameBox2.TextAlign = HorizontalAlignment.Center
+        nameBox2.ForeColor = Color.Black
+        nameBox2.BorderStyle = BorderStyle.None
+        nameBox2.BackColor = Color.MediumSeaGreen
+        SetWidth(nameBox2)
+        nameBox2.Width -= widthX
+        nameBox2.Location = New Point(nameBox1.Location.X + nameBox1.Width, vertLoc)
+        nameBox2.BringToFront()
+
+        nameBox3.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+        nameBox3.TextAlign = HorizontalAlignment.Center
+        nameBox3.ForeColor = Color.Black
+        nameBox3.BorderStyle = BorderStyle.None
+        nameBox3.BackColor = Color.MediumSeaGreen
+        SetWidth(nameBox3)
+        nameBox3.Width -= widthX
+        nameBox3.Location = New Point(nameBox2.Location.X + nameBox2.Width, vertLoc)
+        nameBox3.BringToFront()
+
+        nameBox4.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+        nameBox4.TextAlign = HorizontalAlignment.Center
+        nameBox4.ForeColor = Color.Black
+        nameBox4.BorderStyle = BorderStyle.None
+        nameBox4.BackColor = Color.MediumSeaGreen
+        SetWidth(nameBox4)
+        nameBox4.Width -= widthX
+        nameBox4.Location = New Point(nameBox3.Location.X + nameBox3.Width, vertLoc)
+        nameBox4.BringToFront()
+
+        nameBox5.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+        nameBox5.TextAlign = HorizontalAlignment.Center
+        nameBox5.ForeColor = Color.Black
+        nameBox5.BorderStyle = BorderStyle.None
+        nameBox5.BackColor = Color.MediumSeaGreen
+        SetWidth(nameBox5)
+        nameBox5.Width -= widthX
+        nameBox5.Location = New Point(nameBox4.Location.X + nameBox4.Width, vertLoc)
+        nameBox5.BringToFront()
+
+        nameBox6.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+        nameBox6.TextAlign = HorizontalAlignment.Center
+        nameBox6.ForeColor = Color.Black
+        nameBox6.BorderStyle = BorderStyle.None
+        nameBox6.BackColor = Color.MediumSeaGreen
+        SetWidth(nameBox6)
+        nameBox6.Width -= widthX
+        nameBox6.Location = New Point(nameBox5.Location.X + nameBox5.Width, vertLoc)
+        nameBox6.BringToFront()
+
+        nameBox7.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+        nameBox7.TextAlign = HorizontalAlignment.Center
+        nameBox7.ForeColor = Color.Black
+        nameBox7.BorderStyle = BorderStyle.None
+        nameBox7.BackColor = Color.MediumSeaGreen
+        SetWidth(nameBox7)
+        nameBox7.Width -= widthX
+        nameBox7.Location = New Point(nameBox6.Location.X + nameBox6.Width, vertLoc)
+        nameBox7.BringToFront()
+
+        nameBox8.Font = New Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+        nameBox8.TextAlign = HorizontalAlignment.Center
+        nameBox8.ForeColor = Color.Black
+        nameBox8.BorderStyle = BorderStyle.None
+        nameBox8.BackColor = Color.MediumSeaGreen
+        SetWidth(nameBox8)
+        nameBox8.Width -= widthX
+        nameBox8.Location = New Point(nameBox7.Location.X + nameBox7.Width, vertLoc)
+        nameBox8.BringToFront()
+
+
+
+        nameBox1.Visible = True
+        nameBox2.Visible = True
+        nameBox3.Visible = True
+        nameBox4.Visible = True
+        nameBox5.Visible = True
+        nameBox6.Visible = True
+        nameBox7.Visible = True
+        nameBox8.Visible = True
+
+    End Sub
+
+    Private Sub UpdateHighlightedNamebox(direction As String)
+        Dim nb As TextBox() = {nameBox1, nameBox2, nameBox3, nameBox4, nameBox5, nameBox6, nameBox7, nameBox8}
+        Dim count As Integer
+
+        For Each TextBox In nb
+            'verify only one is highlighted
+
+            If TextBox.BackColor = Color.Black Then
+                count += 1
+
+            End If
+        Next
+
+        If count > 1 Then
+            count = 0
+            Exit Sub
+        End If
+
+        For Each TextBox In nb
+            
+            If TextBox.BackColor = Color.Black Then
+                Dim value As Integer = TextBox.Text
+                'determine up or down
+                If direction = "up" Then
+                    'increment the value
+                    'max of 9
+                    If value <> 9 Then
+                        value += 1
+                        TextBox.Text = value
+                    End If
+
+                ElseIf direction = "down" Then
+                    'decrement the value
+                    'min of 0
+                    If value <> 0 Then
+                        value -= 1
+                        TextBox.Text = value
+                    End If
+
+                End If
+            End If
+        Next
+
+        If nameBox1.Location.Y = b1TB.Location.Y Then
+            storedRXfreq = nameBox1.Text + nameBox2.Text + nameBox3.Text + nameBox4.Text + nameBox5.Text +
+                nameBox6.Text + nameBox7.Text + nameBox8.Text
+            b2TB.Text = storedRXfreq
+        ElseIf nameBox1.Location.Y = c1TB.Location.Y Then
+            storedTXfreq = nameBox1.Text + nameBox2.Text + nameBox3.Text + nameBox4.Text + nameBox5.Text +
+                nameBox6.Text + nameBox7.Text + nameBox8.Text
+            c3TB.Text = storedTXfreq
+        End If
+
+    End Sub
+
+    Private Sub KDUupdateNameboxes()
+
+        kdu.namebox1.Location = New Point(nameBox1.Location.X - xfactor, nameBox1.Location.Y - yfactor)
+        kdu.namebox1.Font = nameBox1.Font
+        kdu.namebox1.Size = nameBox1.Size
+        kdu.namebox1.Text = nameBox1.Text
+        kdu.namebox1.TextAlign = nameBox1.TextAlign
+        kdu.namebox1.BackColor = nameBox1.BackColor
+        kdu.namebox1.ForeColor = nameBox1.ForeColor
+        kdu.namebox1.BorderStyle = nameBox1.BorderStyle
+        kdu.namebox1.Visible = nameBox1.Visible
+        kdu.namebox1.BringToFront()
+
+        kdu.namebox2.Location = New Point(nameBox2.Location.X - xfactor, nameBox2.Location.Y - yfactor)
+        kdu.namebox2.Font = nameBox2.Font
+        kdu.namebox2.Size = nameBox2.Size
+        kdu.namebox2.Text = nameBox2.Text
+        kdu.namebox2.TextAlign = nameBox2.TextAlign
+        kdu.namebox2.BackColor = nameBox2.BackColor
+        kdu.namebox2.ForeColor = nameBox2.ForeColor
+        kdu.namebox2.BorderStyle = nameBox2.BorderStyle
+        kdu.namebox2.Visible = nameBox2.Visible
+        kdu.namebox2.BringToFront()
+
+        kdu.namebox3.Location = New Point(nameBox3.Location.X - xfactor, nameBox3.Location.Y - yfactor)
+        kdu.namebox3.Font = nameBox3.Font
+        kdu.namebox3.Size = nameBox3.Size
+        kdu.namebox3.Text = nameBox3.Text
+        kdu.namebox3.TextAlign = nameBox3.TextAlign
+        kdu.namebox3.BackColor = nameBox3.BackColor
+        kdu.namebox3.ForeColor = nameBox3.ForeColor
+        kdu.namebox3.BorderStyle = nameBox3.BorderStyle
+        kdu.namebox3.Visible = nameBox3.Visible
+        kdu.namebox3.BringToFront()
+
+        kdu.namebox4.Location = New Point(nameBox4.Location.X - xfactor, nameBox4.Location.Y - yfactor)
+        kdu.namebox4.Font = nameBox4.Font
+        kdu.namebox4.Size = nameBox4.Size
+        kdu.namebox4.Text = nameBox4.Text
+        kdu.namebox4.TextAlign = nameBox4.TextAlign
+        kdu.namebox4.BackColor = nameBox4.BackColor
+        kdu.namebox4.ForeColor = nameBox4.ForeColor
+        kdu.namebox4.BorderStyle = nameBox4.BorderStyle
+        kdu.namebox4.Visible = nameBox4.Visible
+        kdu.namebox4.BringToFront()
+
+        kdu.namebox5.Location = New Point(nameBox5.Location.X - xfactor, nameBox5.Location.Y - yfactor)
+        kdu.namebox5.Font = nameBox5.Font
+        kdu.namebox5.Size = nameBox5.Size
+        kdu.namebox5.Text = nameBox5.Text
+        kdu.namebox5.TextAlign = nameBox5.TextAlign
+        kdu.namebox5.BackColor = nameBox5.BackColor
+        kdu.namebox5.ForeColor = nameBox5.ForeColor
+        kdu.namebox5.BorderStyle = nameBox5.BorderStyle
+        kdu.namebox5.Visible = nameBox5.Visible
+        kdu.namebox5.BringToFront()
+
+        kdu.namebox6.Location = New Point(nameBox6.Location.X - xfactor, nameBox6.Location.Y - yfactor)
+        kdu.namebox6.Font = nameBox6.Font
+        kdu.namebox6.Size = nameBox6.Size
+        kdu.namebox6.Text = nameBox6.Text
+        kdu.namebox6.TextAlign = nameBox6.TextAlign
+        kdu.namebox6.BackColor = nameBox6.BackColor
+        kdu.namebox6.ForeColor = nameBox6.ForeColor
+        kdu.namebox6.BorderStyle = nameBox6.BorderStyle
+        kdu.namebox6.Visible = nameBox6.Visible
+        kdu.namebox6.BringToFront()
+
+        kdu.namebox7.Location = New Point(nameBox7.Location.X - xfactor, nameBox7.Location.Y - yfactor)
+        kdu.namebox7.Font = nameBox7.Font
+        kdu.namebox7.Size = nameBox7.Size
+        kdu.namebox7.Text = nameBox7.Text
+        kdu.namebox7.TextAlign = nameBox7.TextAlign
+        kdu.namebox7.BackColor = nameBox7.BackColor
+        kdu.namebox7.ForeColor = nameBox7.ForeColor
+        kdu.namebox7.BorderStyle = nameBox7.BorderStyle
+        kdu.namebox7.Visible = nameBox7.Visible
+        kdu.namebox7.BringToFront()
+
+        kdu.namebox8.Location = New Point(nameBox8.Location.X - xfactor, nameBox8.Location.Y - yfactor)
+        kdu.namebox8.Font = nameBox8.Font
+        kdu.namebox8.Size = nameBox8.Size
+        kdu.namebox8.Text = nameBox8.Text
+        kdu.namebox8.TextAlign = nameBox8.TextAlign
+        kdu.namebox8.BackColor = nameBox8.BackColor
+        kdu.namebox8.ForeColor = nameBox8.ForeColor
+        kdu.namebox8.BorderStyle = nameBox8.BorderStyle
+        kdu.namebox8.Visible = nameBox8.Visible
+        kdu.namebox8.BringToFront()
+
+    End Sub
+
+    
+
+    
+    
+    Private Sub Form1_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
+        PrcDimmer.Location = New Point(Me.Location.X + 392, Me.Location.Y + 173)
+    End Sub
 End Class

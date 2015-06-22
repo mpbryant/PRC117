@@ -1,8 +1,14 @@
 ﻿Imports System.Drawing.Drawing2D
+Imports System.Drawing
+Imports System.Windows.Forms
 
 
 
 Public Class kdu
+
+    Dim drag As Boolean
+    Dim mousex As Integer
+    Dim mousey As Integer
 
 
     Private Sub kdu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -95,6 +101,7 @@ Public Class kdu
         'create a GRAPHICSPATH reference
         Dim myVolDn As GraphicsPath = New GraphicsPath
         myVolDn.AddPolygon(VolDnArray)
+        
 
         Dim myVolUp As GraphicsPath = New GraphicsPath
         myVolUp.AddPolygon(VolUpArray)
@@ -131,29 +138,40 @@ Public Class kdu
 
         'create a new region based on the GRAPHICSPATH object
         volDnBtn.Region = New Region(myVolDn)
+        volDnBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         volUpBtn.Region = New Region(myVolUp)
+        volUpBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         preDnBtn.Region = New Region(myPreDn)
+        preDnBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         preUpBtn.Region = New Region(myPreUp)
+        preUpBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         entBtn.Region = New Region(myEnt)
+        entBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         clrBtn.Region = New Region(myClr)
+        clrBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         pushRightBtn.Region = New Region(myPushRight)
+        pushRightBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         pushLeftBtn.Region = New Region(myPushLeft)
+        pushLeftBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         pushUpBtn.Region = New Region(myPushUp)
+        pushUpBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         pushDownBtn.Region = New Region(myPushDown)
+        pushDownBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
         selectBTN.Region = New Region(mySelect)
+        selectBTN.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255)
 
-
-
+        KduDimmer.Show()
+        KduDimmer.Location = New Point(Me.Location.X + 181, Me.Location.Y + 157)
     End Sub
 
 
@@ -290,5 +308,58 @@ Public Class kdu
         Form1.btnEnt_Click(sender, e)
     End Sub
 
+    Public Sub KDUregion()
 
+        closeBtn.Visible = True
+        moveBtn.Visible = True
+
+
+    End Sub
+
+    Private Sub moveBtn_MouseDown(sender As Object, e As MouseEventArgs) Handles moveBtn.MouseDown
+        drag = True
+        mousex = Windows.Forms.Cursor.Position.X - Me.Left
+        mousey = Windows.Forms.Cursor.Position.X - Me.Top
+    End Sub
+
+    Private Sub moveBtn_MouseMove(sender As Object, e As MouseEventArgs) Handles moveBtn.MouseMove
+        If drag Then
+            Me.Top = Windows.Forms.Cursor.Position.Y - 360
+            Me.Left = Windows.Forms.Cursor.Position.X - mousex
+        End If
+    End Sub
+
+    Private Sub moveBtn_MouseUp(sender As Object, e As MouseEventArgs) Handles moveBtn.MouseUp
+        drag = False
+    End Sub
+
+    Public Sub TransparencyShow()
+        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Fixed3D
+        Me.TransparencyKey = Color.FromArgb(128, 128, 128)
+        Me.closeBtn.Visible = False
+        Me.moveBtn.Visible = False
+        KduDimmer.Location = New Point(Me.Location.X + 181, Me.Location.Y + 157)
+    End Sub
+
+    Public Sub TransparencyHide()
+        Me.TransparencyKey = Color.FromArgb(127, 127, 127)
+        Me.closeBtn.Visible = True
+        Me.moveBtn.Visible = True
+        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+        KduDimmer.Location = New Point(Me.Location.X + 171, Me.Location.Y + 124)
+    End Sub
+
+
+    Private Sub closeBtn_Click(sender As Object, e As EventArgs) Handles closeBtn.Click
+        Me.Close()
+    End Sub
+
+    Private Sub kdu_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
+        If Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None Then
+            KduDimmer.Location = New Point(Me.Location.X + 171, Me.Location.Y + 124)
+        Else
+            KduDimmer.Location = New Point(Me.Location.X + 181, Me.Location.Y + 157)
+        End If
+
+    End Sub
 End Class

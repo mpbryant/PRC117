@@ -91,20 +91,19 @@ Partial Class Form1
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KDUToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
         Me.StartTimer = New System.Windows.Forms.Timer(Me.components)
         Me.currentRadioLBL = New System.Windows.Forms.Label()
         Me.generalUseTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.moveBtn = New System.Windows.Forms.Button()
+        Me.closeBtn = New System.Windows.Forms.Button()
         CType(Me.displayPic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.a3PB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.b7PB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.b6PB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOFF
@@ -929,28 +928,6 @@ Partial Class Form1
         Me.PictureBox2.TabIndex = 80
         Me.PictureBox2.TabStop = False
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(934, 24)
-        Me.MenuStrip1.TabIndex = 81
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'ViewToolStripMenuItem
-        '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KDUToolStripMenuItem})
-        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.ViewToolStripMenuItem.Text = "View"
-        '
-        'KDUToolStripMenuItem
-        '
-        Me.KDUToolStripMenuItem.Name = "KDUToolStripMenuItem"
-        Me.KDUToolStripMenuItem.Size = New System.Drawing.Size(90, 22)
-        Me.KDUToolStripMenuItem.Text = "KDU"
-        '
         'Timer3
         '
         '
@@ -969,14 +946,65 @@ Partial Class Form1
         Me.currentRadioLBL.TabIndex = 82
         Me.currentRadioLBL.Text = "fbf"
         '
+        'generalUseTimer
+        '
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Label5.Location = New System.Drawing.Point(880, 64)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(39, 13)
+        Me.Label5.TabIndex = 83
+        Me.Label5.Text = "Label5"
+        Me.Label5.Visible = False
+        '
+        'moveBtn
+        '
+        Me.moveBtn.BackColor = System.Drawing.Color.Transparent
+        Me.moveBtn.FlatAppearance.BorderSize = 0
+        Me.moveBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOliveGreen
+        Me.moveBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.YellowGreen
+        Me.moveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.moveBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.moveBtn.ForeColor = System.Drawing.Color.Green
+        Me.moveBtn.Location = New System.Drawing.Point(312, 470)
+        Me.moveBtn.Name = "moveBtn"
+        Me.moveBtn.Size = New System.Drawing.Size(48, 23)
+        Me.moveBtn.TabIndex = 84
+        Me.moveBtn.Text = "Move"
+        Me.moveBtn.UseVisualStyleBackColor = False
+        Me.moveBtn.Visible = False
+        '
+        'closeBtn
+        '
+        Me.closeBtn.BackColor = System.Drawing.Color.Transparent
+        Me.closeBtn.FlatAppearance.BorderSize = 0
+        Me.closeBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOliveGreen
+        Me.closeBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.YellowGreen
+        Me.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.closeBtn.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.closeBtn.ForeColor = System.Drawing.Color.Green
+        Me.closeBtn.Location = New System.Drawing.Point(649, 470)
+        Me.closeBtn.Name = "closeBtn"
+        Me.closeBtn.Size = New System.Drawing.Size(48, 23)
+        Me.closeBtn.TabIndex = 85
+        Me.closeBtn.Text = "Close"
+        Me.closeBtn.UseVisualStyleBackColor = False
+        Me.closeBtn.Visible = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.BackColor = System.Drawing.Color.DimGray
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.ClientSize = New System.Drawing.Size(934, 534)
+        Me.Controls.Add(Me.closeBtn)
+        Me.Controls.Add(Me.moveBtn)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.currentRadioLBL)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
@@ -1041,12 +1069,10 @@ Partial Class Form1
         Me.Controls.Add(Me.btnOFF)
         Me.Controls.Add(Me.displayPic)
         Me.Controls.Add(Me.btn0)
-        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.ShapeContainer1)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.Text = "PRC-117G Radio Simulator v 1.1.1.19"
@@ -1057,8 +1083,6 @@ Partial Class Form1
         CType(Me.b6PB, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1130,12 +1154,12 @@ Partial Class Form1
     Friend WithEvents displayPic As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents ViewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents KDUToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Timer3 As System.Windows.Forms.Timer
     Friend WithEvents StartTimer As System.Windows.Forms.Timer
     Friend WithEvents currentRadioLBL As System.Windows.Forms.Label
     Friend WithEvents generalUseTimer As System.Windows.Forms.Timer
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents moveBtn As System.Windows.Forms.Button
+    Friend WithEvents closeBtn As System.Windows.Forms.Button
 
 End Class

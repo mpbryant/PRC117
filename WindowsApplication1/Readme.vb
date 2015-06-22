@@ -1,4 +1,6 @@
-﻿Public Class Readme
+﻿Imports System.Windows.Forms
+
+Public Class Readme
 
     Dim myText1 As String
     Dim myText2 As String
@@ -15,7 +17,7 @@
 
     Private Sub Readme_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        
+
 
         '"A VHF/UHF Line of Sight (VULOS) net allows the user to receive and transmit voice and/or data using fixed receive and transmit frequencies. Antenna type, antenna height, output power, terrain, external terrain, and obstructions between AN/PRC-117G radios are all factors in range of communications. VULOS can be operated in either Plain Text (PT) or Cipher Text (CT) mode." + vbNewLine + "There are twenty-eight steps to program VULOS presets into the AN/PRC-117G radio." + vbNewLine + "" + vbNewLine +
 
@@ -92,5 +94,32 @@
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
+    End Sub
+
+    Private Sub ViewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub KDUToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KDUToolStripMenuItem.Click
+
+        kdu.FormBorderStyle = Windows.Forms.FormBorderStyle.Fixed3D
+        kdu.Show()
+    End Sub
+
+    Private Sub ShowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowToolStripMenuItem.Click
+        Form1.Region = New Region()
+        Form1.closeBtn.Visible = False
+        Form1.moveBtn.Visible = False
+
+
+        kdu.TransparencyShow()
+        
+
+    End Sub
+
+    Private Sub HideToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HideToolStripMenuItem.Click
+
+        kdu.TransparencyHide()
+        Form1.SetRegion()
     End Sub
 End Class

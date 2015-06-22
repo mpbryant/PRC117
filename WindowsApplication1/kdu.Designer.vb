@@ -155,6 +155,8 @@ Partial Class kdu
         Me.ip12 = New System.Windows.Forms.TextBox()
         Me.ip13 = New System.Windows.Forms.TextBox()
         Me.ip14 = New System.Windows.Forms.TextBox()
+        Me.closeBtn = New System.Windows.Forms.Button()
+        Me.moveBtn = New System.Windows.Forms.Button()
         CType(Me.b6PB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.b7PB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.a3PB, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -230,6 +232,7 @@ Partial Class kdu
         Me.d4TB.ReadOnly = True
         Me.d4TB.Size = New System.Drawing.Size(47, 13)
         Me.d4TB.TabIndex = 98
+        Me.d4TB.TabStop = False
         Me.d4TB.Text = "MOD"
         Me.d4TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -243,6 +246,7 @@ Partial Class kdu
         Me.d3TB.ReadOnly = True
         Me.d3TB.Size = New System.Drawing.Size(47, 13)
         Me.d3TB.TabIndex = 97
+        Me.d3TB.TabStop = False
         Me.d3TB.Text = "TRF"
         Me.d3TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -256,6 +260,7 @@ Partial Class kdu
         Me.d1TB.ReadOnly = True
         Me.d1TB.Size = New System.Drawing.Size(47, 13)
         Me.d1TB.TabIndex = 96
+        Me.d1TB.TabStop = False
         Me.d1TB.Text = "TYPE"
         Me.d1TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -396,6 +401,7 @@ Partial Class kdu
         Me.a4TB.ReadOnly = True
         Me.a4TB.Size = New System.Drawing.Size(47, 13)
         Me.a4TB.TabIndex = 84
+        Me.a4TB.TabStop = False
         Me.a4TB.Text = "VULOS"
         Me.a4TB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -861,7 +867,7 @@ Partial Class kdu
         '
         'page4TB1
         '
-        Me.page4TB1.Location = New System.Drawing.Point(0, 0)
+        Me.page4TB1.Location = New System.Drawing.Point(67, 72)
         Me.page4TB1.Name = "page4TB1"
         Me.page4TB1.Size = New System.Drawing.Size(31, 20)
         Me.page4TB1.TabIndex = 133
@@ -869,7 +875,7 @@ Partial Class kdu
         '
         'page4TB2
         '
-        Me.page4TB2.Location = New System.Drawing.Point(37, 0)
+        Me.page4TB2.Location = New System.Drawing.Point(104, 72)
         Me.page4TB2.Name = "page4TB2"
         Me.page4TB2.Size = New System.Drawing.Size(27, 20)
         Me.page4TB2.TabIndex = 134
@@ -877,7 +883,7 @@ Partial Class kdu
         '
         'modBox
         '
-        Me.modBox.Location = New System.Drawing.Point(70, 0)
+        Me.modBox.Location = New System.Drawing.Point(137, 72)
         Me.modBox.Name = "modBox"
         Me.modBox.Size = New System.Drawing.Size(25, 20)
         Me.modBox.TabIndex = 135
@@ -1021,7 +1027,7 @@ Partial Class kdu
         Me.PictureBox3.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox3.BackgroundImage = Global.WindowsApplication1.My.Resources.Resources.DownArrow
         Me.PictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox3.Location = New System.Drawing.Point(405, 256)
+        Me.PictureBox3.Location = New System.Drawing.Point(405, 258)
         Me.PictureBox3.Margin = New System.Windows.Forms.Padding(0)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(18, 16)
@@ -1034,7 +1040,7 @@ Partial Class kdu
         Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox2.BackgroundImage = Global.WindowsApplication1.My.Resources.Resources.UpArrow
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox2.Location = New System.Drawing.Point(250, 256)
+        Me.PictureBox2.Location = New System.Drawing.Point(250, 258)
         Me.PictureBox2.Margin = New System.Windows.Forms.Padding(0)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(18, 16)
@@ -1043,7 +1049,7 @@ Partial Class kdu
         '
         'digit1
         '
-        Me.digit1.Location = New System.Drawing.Point(101, 0)
+        Me.digit1.Location = New System.Drawing.Point(168, 72)
         Me.digit1.Name = "digit1"
         Me.digit1.Size = New System.Drawing.Size(25, 20)
         Me.digit1.TabIndex = 150
@@ -1051,7 +1057,7 @@ Partial Class kdu
         '
         'digit2
         '
-        Me.digit2.Location = New System.Drawing.Point(132, 0)
+        Me.digit2.Location = New System.Drawing.Point(199, 72)
         Me.digit2.Name = "digit2"
         Me.digit2.Size = New System.Drawing.Size(25, 20)
         Me.digit2.TabIndex = 151
@@ -1059,7 +1065,7 @@ Partial Class kdu
         '
         'digit3
         '
-        Me.digit3.Location = New System.Drawing.Point(162, 0)
+        Me.digit3.Location = New System.Drawing.Point(229, 72)
         Me.digit3.Name = "digit3"
         Me.digit3.Size = New System.Drawing.Size(25, 20)
         Me.digit3.TabIndex = 152
@@ -1067,7 +1073,7 @@ Partial Class kdu
         '
         'digit4
         '
-        Me.digit4.Location = New System.Drawing.Point(193, 0)
+        Me.digit4.Location = New System.Drawing.Point(260, 72)
         Me.digit4.Name = "digit4"
         Me.digit4.Size = New System.Drawing.Size(25, 20)
         Me.digit4.TabIndex = 153
@@ -1075,7 +1081,7 @@ Partial Class kdu
         '
         'digit5
         '
-        Me.digit5.Location = New System.Drawing.Point(224, 0)
+        Me.digit5.Location = New System.Drawing.Point(291, 72)
         Me.digit5.Name = "digit5"
         Me.digit5.Size = New System.Drawing.Size(25, 20)
         Me.digit5.TabIndex = 154
@@ -1083,7 +1089,7 @@ Partial Class kdu
         '
         'digit6
         '
-        Me.digit6.Location = New System.Drawing.Point(255, 0)
+        Me.digit6.Location = New System.Drawing.Point(322, 72)
         Me.digit6.Name = "digit6"
         Me.digit6.Size = New System.Drawing.Size(25, 20)
         Me.digit6.TabIndex = 155
@@ -1091,7 +1097,7 @@ Partial Class kdu
         '
         'digit7
         '
-        Me.digit7.Location = New System.Drawing.Point(286, 0)
+        Me.digit7.Location = New System.Drawing.Point(353, 72)
         Me.digit7.Name = "digit7"
         Me.digit7.Size = New System.Drawing.Size(25, 20)
         Me.digit7.TabIndex = 156
@@ -1099,7 +1105,7 @@ Partial Class kdu
         '
         'digit8
         '
-        Me.digit8.Location = New System.Drawing.Point(317, 0)
+        Me.digit8.Location = New System.Drawing.Point(384, 72)
         Me.digit8.Name = "digit8"
         Me.digit8.Size = New System.Drawing.Size(25, 20)
         Me.digit8.TabIndex = 157
@@ -1107,7 +1113,7 @@ Partial Class kdu
         '
         'digit9
         '
-        Me.digit9.Location = New System.Drawing.Point(348, 0)
+        Me.digit9.Location = New System.Drawing.Point(415, 72)
         Me.digit9.Name = "digit9"
         Me.digit9.Size = New System.Drawing.Size(25, 20)
         Me.digit9.TabIndex = 158
@@ -1115,7 +1121,7 @@ Partial Class kdu
         '
         'volumeBar
         '
-        Me.volumeBar.Location = New System.Drawing.Point(378, 0)
+        Me.volumeBar.Location = New System.Drawing.Point(445, 72)
         Me.volumeBar.Name = "volumeBar"
         Me.volumeBar.Size = New System.Drawing.Size(25, 20)
         Me.volumeBar.TabIndex = 159
@@ -1123,7 +1129,7 @@ Partial Class kdu
         '
         'volumeBarBackground
         '
-        Me.volumeBarBackground.Location = New System.Drawing.Point(409, 0)
+        Me.volumeBarBackground.Location = New System.Drawing.Point(476, 72)
         Me.volumeBarBackground.Name = "volumeBarBackground"
         Me.volumeBarBackground.Size = New System.Drawing.Size(25, 20)
         Me.volumeBarBackground.TabIndex = 160
@@ -1131,7 +1137,7 @@ Partial Class kdu
         '
         'volumeBarOutline
         '
-        Me.volumeBarOutline.Location = New System.Drawing.Point(440, 0)
+        Me.volumeBarOutline.Location = New System.Drawing.Point(507, 72)
         Me.volumeBarOutline.Name = "volumeBarOutline"
         Me.volumeBarOutline.Size = New System.Drawing.Size(25, 20)
         Me.volumeBarOutline.TabIndex = 161
@@ -1155,7 +1161,7 @@ Partial Class kdu
         'volUpBtn
         '
         Me.volUpBtn.BackColor = System.Drawing.Color.Transparent
-        Me.volUpBtn.FlatAppearance.BorderColor = System.Drawing.Color.Red
+        Me.volUpBtn.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen
         Me.volUpBtn.FlatAppearance.BorderSize = 0
         Me.volUpBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
         Me.volUpBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
@@ -1247,7 +1253,7 @@ Partial Class kdu
         '
         'namebox9
         '
-        Me.namebox9.Location = New System.Drawing.Point(248, 26)
+        Me.namebox9.Location = New System.Drawing.Point(315, 98)
         Me.namebox9.Name = "namebox9"
         Me.namebox9.Size = New System.Drawing.Size(25, 20)
         Me.namebox9.TabIndex = 169
@@ -1255,7 +1261,7 @@ Partial Class kdu
         '
         'namebox8
         '
-        Me.namebox8.Location = New System.Drawing.Point(217, 26)
+        Me.namebox8.Location = New System.Drawing.Point(284, 98)
         Me.namebox8.Name = "namebox8"
         Me.namebox8.Size = New System.Drawing.Size(25, 20)
         Me.namebox8.TabIndex = 170
@@ -1263,7 +1269,7 @@ Partial Class kdu
         '
         'namebox7
         '
-        Me.namebox7.Location = New System.Drawing.Point(186, 26)
+        Me.namebox7.Location = New System.Drawing.Point(253, 98)
         Me.namebox7.Name = "namebox7"
         Me.namebox7.Size = New System.Drawing.Size(25, 20)
         Me.namebox7.TabIndex = 171
@@ -1271,7 +1277,7 @@ Partial Class kdu
         '
         'namebox6
         '
-        Me.namebox6.Location = New System.Drawing.Point(155, 26)
+        Me.namebox6.Location = New System.Drawing.Point(222, 98)
         Me.namebox6.Name = "namebox6"
         Me.namebox6.Size = New System.Drawing.Size(25, 20)
         Me.namebox6.TabIndex = 172
@@ -1279,7 +1285,7 @@ Partial Class kdu
         '
         'namebox5
         '
-        Me.namebox5.Location = New System.Drawing.Point(124, 26)
+        Me.namebox5.Location = New System.Drawing.Point(191, 98)
         Me.namebox5.Name = "namebox5"
         Me.namebox5.Size = New System.Drawing.Size(25, 20)
         Me.namebox5.TabIndex = 173
@@ -1287,7 +1293,7 @@ Partial Class kdu
         '
         'namebox4
         '
-        Me.namebox4.Location = New System.Drawing.Point(93, 26)
+        Me.namebox4.Location = New System.Drawing.Point(160, 98)
         Me.namebox4.Name = "namebox4"
         Me.namebox4.Size = New System.Drawing.Size(25, 20)
         Me.namebox4.TabIndex = 174
@@ -1295,7 +1301,7 @@ Partial Class kdu
         '
         'namebox3
         '
-        Me.namebox3.Location = New System.Drawing.Point(62, 26)
+        Me.namebox3.Location = New System.Drawing.Point(129, 98)
         Me.namebox3.Name = "namebox3"
         Me.namebox3.Size = New System.Drawing.Size(25, 20)
         Me.namebox3.TabIndex = 175
@@ -1303,7 +1309,7 @@ Partial Class kdu
         '
         'namebox2
         '
-        Me.namebox2.Location = New System.Drawing.Point(31, 26)
+        Me.namebox2.Location = New System.Drawing.Point(98, 98)
         Me.namebox2.Name = "namebox2"
         Me.namebox2.Size = New System.Drawing.Size(25, 20)
         Me.namebox2.TabIndex = 176
@@ -1311,7 +1317,7 @@ Partial Class kdu
         '
         'namebox1
         '
-        Me.namebox1.Location = New System.Drawing.Point(0, 26)
+        Me.namebox1.Location = New System.Drawing.Point(67, 98)
         Me.namebox1.Name = "namebox1"
         Me.namebox1.Size = New System.Drawing.Size(25, 20)
         Me.namebox1.TabIndex = 177
@@ -1319,7 +1325,7 @@ Partial Class kdu
         '
         'namebox10
         '
-        Me.namebox10.Location = New System.Drawing.Point(279, 26)
+        Me.namebox10.Location = New System.Drawing.Point(346, 98)
         Me.namebox10.Name = "namebox10"
         Me.namebox10.Size = New System.Drawing.Size(25, 20)
         Me.namebox10.TabIndex = 178
@@ -1327,7 +1333,7 @@ Partial Class kdu
         '
         'namebox20
         '
-        Me.namebox20.Location = New System.Drawing.Point(279, 362)
+        Me.namebox20.Location = New System.Drawing.Point(346, 363)
         Me.namebox20.Name = "namebox20"
         Me.namebox20.Size = New System.Drawing.Size(25, 20)
         Me.namebox20.TabIndex = 188
@@ -1335,7 +1341,7 @@ Partial Class kdu
         '
         'namebox11
         '
-        Me.namebox11.Location = New System.Drawing.Point(0, 362)
+        Me.namebox11.Location = New System.Drawing.Point(84, 219)
         Me.namebox11.Name = "namebox11"
         Me.namebox11.Size = New System.Drawing.Size(25, 20)
         Me.namebox11.TabIndex = 187
@@ -1343,7 +1349,7 @@ Partial Class kdu
         '
         'namebox12
         '
-        Me.namebox12.Location = New System.Drawing.Point(31, 362)
+        Me.namebox12.Location = New System.Drawing.Point(98, 363)
         Me.namebox12.Name = "namebox12"
         Me.namebox12.Size = New System.Drawing.Size(25, 20)
         Me.namebox12.TabIndex = 186
@@ -1351,7 +1357,7 @@ Partial Class kdu
         '
         'namebox13
         '
-        Me.namebox13.Location = New System.Drawing.Point(62, 362)
+        Me.namebox13.Location = New System.Drawing.Point(129, 363)
         Me.namebox13.Name = "namebox13"
         Me.namebox13.Size = New System.Drawing.Size(25, 20)
         Me.namebox13.TabIndex = 185
@@ -1359,7 +1365,7 @@ Partial Class kdu
         '
         'namebox14
         '
-        Me.namebox14.Location = New System.Drawing.Point(93, 362)
+        Me.namebox14.Location = New System.Drawing.Point(160, 363)
         Me.namebox14.Name = "namebox14"
         Me.namebox14.Size = New System.Drawing.Size(25, 20)
         Me.namebox14.TabIndex = 184
@@ -1367,7 +1373,7 @@ Partial Class kdu
         '
         'namebox15
         '
-        Me.namebox15.Location = New System.Drawing.Point(124, 362)
+        Me.namebox15.Location = New System.Drawing.Point(191, 363)
         Me.namebox15.Name = "namebox15"
         Me.namebox15.Size = New System.Drawing.Size(25, 20)
         Me.namebox15.TabIndex = 183
@@ -1375,7 +1381,7 @@ Partial Class kdu
         '
         'namebox16
         '
-        Me.namebox16.Location = New System.Drawing.Point(155, 362)
+        Me.namebox16.Location = New System.Drawing.Point(222, 363)
         Me.namebox16.Name = "namebox16"
         Me.namebox16.Size = New System.Drawing.Size(25, 20)
         Me.namebox16.TabIndex = 182
@@ -1383,7 +1389,7 @@ Partial Class kdu
         '
         'namebox17
         '
-        Me.namebox17.Location = New System.Drawing.Point(186, 362)
+        Me.namebox17.Location = New System.Drawing.Point(253, 363)
         Me.namebox17.Name = "namebox17"
         Me.namebox17.Size = New System.Drawing.Size(25, 20)
         Me.namebox17.TabIndex = 181
@@ -1391,7 +1397,7 @@ Partial Class kdu
         '
         'namebox18
         '
-        Me.namebox18.Location = New System.Drawing.Point(217, 362)
+        Me.namebox18.Location = New System.Drawing.Point(284, 363)
         Me.namebox18.Name = "namebox18"
         Me.namebox18.Size = New System.Drawing.Size(25, 20)
         Me.namebox18.TabIndex = 180
@@ -1399,7 +1405,7 @@ Partial Class kdu
         '
         'namebox19
         '
-        Me.namebox19.Location = New System.Drawing.Point(248, 362)
+        Me.namebox19.Location = New System.Drawing.Point(315, 363)
         Me.namebox19.Name = "namebox19"
         Me.namebox19.Size = New System.Drawing.Size(25, 20)
         Me.namebox19.TabIndex = 179
@@ -1479,7 +1485,7 @@ Partial Class kdu
         '
         'tbFront
         '
-        Me.tbFront.Location = New System.Drawing.Point(338, 362)
+        Me.tbFront.Location = New System.Drawing.Point(405, 363)
         Me.tbFront.Name = "tbFront"
         Me.tbFront.Size = New System.Drawing.Size(25, 20)
         Me.tbFront.TabIndex = 194
@@ -1487,7 +1493,7 @@ Partial Class kdu
         '
         'tbBack
         '
-        Me.tbBack.Location = New System.Drawing.Point(400, 362)
+        Me.tbBack.Location = New System.Drawing.Point(467, 363)
         Me.tbBack.Name = "tbBack"
         Me.tbBack.Size = New System.Drawing.Size(25, 20)
         Me.tbBack.TabIndex = 195
@@ -1495,7 +1501,7 @@ Partial Class kdu
         '
         'tbBorder1
         '
-        Me.tbBorder1.Location = New System.Drawing.Point(369, 362)
+        Me.tbBorder1.Location = New System.Drawing.Point(436, 363)
         Me.tbBorder1.Name = "tbBorder1"
         Me.tbBorder1.Size = New System.Drawing.Size(25, 20)
         Me.tbBorder1.TabIndex = 196
@@ -1503,7 +1509,7 @@ Partial Class kdu
         '
         'ip10
         '
-        Me.ip10.Location = New System.Drawing.Point(279, 327)
+        Me.ip10.Location = New System.Drawing.Point(346, 328)
         Me.ip10.Name = "ip10"
         Me.ip10.Size = New System.Drawing.Size(25, 20)
         Me.ip10.TabIndex = 206
@@ -1511,7 +1517,7 @@ Partial Class kdu
         '
         'ip1
         '
-        Me.ip1.Location = New System.Drawing.Point(0, 327)
+        Me.ip1.Location = New System.Drawing.Point(67, 328)
         Me.ip1.Name = "ip1"
         Me.ip1.Size = New System.Drawing.Size(25, 20)
         Me.ip1.TabIndex = 205
@@ -1519,7 +1525,7 @@ Partial Class kdu
         '
         'ip2
         '
-        Me.ip2.Location = New System.Drawing.Point(31, 327)
+        Me.ip2.Location = New System.Drawing.Point(98, 328)
         Me.ip2.Name = "ip2"
         Me.ip2.Size = New System.Drawing.Size(25, 20)
         Me.ip2.TabIndex = 204
@@ -1527,7 +1533,7 @@ Partial Class kdu
         '
         'ip3
         '
-        Me.ip3.Location = New System.Drawing.Point(62, 327)
+        Me.ip3.Location = New System.Drawing.Point(129, 328)
         Me.ip3.Name = "ip3"
         Me.ip3.Size = New System.Drawing.Size(25, 20)
         Me.ip3.TabIndex = 203
@@ -1535,7 +1541,7 @@ Partial Class kdu
         '
         'ip4
         '
-        Me.ip4.Location = New System.Drawing.Point(93, 327)
+        Me.ip4.Location = New System.Drawing.Point(160, 328)
         Me.ip4.Name = "ip4"
         Me.ip4.Size = New System.Drawing.Size(25, 20)
         Me.ip4.TabIndex = 202
@@ -1543,7 +1549,7 @@ Partial Class kdu
         '
         'ip5
         '
-        Me.ip5.Location = New System.Drawing.Point(124, 327)
+        Me.ip5.Location = New System.Drawing.Point(191, 328)
         Me.ip5.Name = "ip5"
         Me.ip5.Size = New System.Drawing.Size(25, 20)
         Me.ip5.TabIndex = 201
@@ -1551,7 +1557,7 @@ Partial Class kdu
         '
         'ip6
         '
-        Me.ip6.Location = New System.Drawing.Point(155, 327)
+        Me.ip6.Location = New System.Drawing.Point(222, 328)
         Me.ip6.Name = "ip6"
         Me.ip6.Size = New System.Drawing.Size(25, 20)
         Me.ip6.TabIndex = 200
@@ -1559,7 +1565,7 @@ Partial Class kdu
         '
         'ip7
         '
-        Me.ip7.Location = New System.Drawing.Point(186, 327)
+        Me.ip7.Location = New System.Drawing.Point(253, 328)
         Me.ip7.Name = "ip7"
         Me.ip7.Size = New System.Drawing.Size(25, 20)
         Me.ip7.TabIndex = 199
@@ -1567,7 +1573,7 @@ Partial Class kdu
         '
         'ip8
         '
-        Me.ip8.Location = New System.Drawing.Point(217, 327)
+        Me.ip8.Location = New System.Drawing.Point(284, 328)
         Me.ip8.Name = "ip8"
         Me.ip8.Size = New System.Drawing.Size(25, 20)
         Me.ip8.TabIndex = 198
@@ -1575,7 +1581,7 @@ Partial Class kdu
         '
         'ip9
         '
-        Me.ip9.Location = New System.Drawing.Point(248, 327)
+        Me.ip9.Location = New System.Drawing.Point(315, 328)
         Me.ip9.Name = "ip9"
         Me.ip9.Size = New System.Drawing.Size(25, 20)
         Me.ip9.TabIndex = 197
@@ -1583,7 +1589,7 @@ Partial Class kdu
         '
         'ip15
         '
-        Me.ip15.Location = New System.Drawing.Point(433, 327)
+        Me.ip15.Location = New System.Drawing.Point(500, 328)
         Me.ip15.Name = "ip15"
         Me.ip15.Size = New System.Drawing.Size(25, 20)
         Me.ip15.TabIndex = 211
@@ -1591,7 +1597,7 @@ Partial Class kdu
         '
         'ip11
         '
-        Me.ip11.Location = New System.Drawing.Point(309, 327)
+        Me.ip11.Location = New System.Drawing.Point(376, 328)
         Me.ip11.Name = "ip11"
         Me.ip11.Size = New System.Drawing.Size(25, 20)
         Me.ip11.TabIndex = 210
@@ -1599,7 +1605,7 @@ Partial Class kdu
         '
         'ip12
         '
-        Me.ip12.Location = New System.Drawing.Point(340, 327)
+        Me.ip12.Location = New System.Drawing.Point(407, 328)
         Me.ip12.Name = "ip12"
         Me.ip12.Size = New System.Drawing.Size(25, 20)
         Me.ip12.TabIndex = 209
@@ -1607,7 +1613,7 @@ Partial Class kdu
         '
         'ip13
         '
-        Me.ip13.Location = New System.Drawing.Point(371, 327)
+        Me.ip13.Location = New System.Drawing.Point(438, 328)
         Me.ip13.Name = "ip13"
         Me.ip13.Size = New System.Drawing.Size(25, 20)
         Me.ip13.TabIndex = 208
@@ -1615,20 +1621,54 @@ Partial Class kdu
         '
         'ip14
         '
-        Me.ip14.Location = New System.Drawing.Point(402, 327)
+        Me.ip14.Location = New System.Drawing.Point(469, 328)
         Me.ip14.Name = "ip14"
         Me.ip14.Size = New System.Drawing.Size(25, 20)
         Me.ip14.TabIndex = 207
         Me.ip14.Visible = False
         '
+        'closeBtn
+        '
+        Me.closeBtn.BackColor = System.Drawing.Color.Transparent
+        Me.closeBtn.FlatAppearance.BorderSize = 0
+        Me.closeBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen
+        Me.closeBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOliveGreen
+        Me.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.closeBtn.ForeColor = System.Drawing.Color.Green
+        Me.closeBtn.Location = New System.Drawing.Point(464, 344)
+        Me.closeBtn.Name = "closeBtn"
+        Me.closeBtn.Size = New System.Drawing.Size(48, 23)
+        Me.closeBtn.TabIndex = 212
+        Me.closeBtn.Text = "Close"
+        Me.closeBtn.UseVisualStyleBackColor = False
+        Me.closeBtn.Visible = False
+        '
+        'moveBtn
+        '
+        Me.moveBtn.BackColor = System.Drawing.Color.Transparent
+        Me.moveBtn.FlatAppearance.BorderSize = 0
+        Me.moveBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGreen
+        Me.moveBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkOliveGreen
+        Me.moveBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.moveBtn.ForeColor = System.Drawing.Color.Green
+        Me.moveBtn.Location = New System.Drawing.Point(88, 344)
+        Me.moveBtn.Name = "moveBtn"
+        Me.moveBtn.Size = New System.Drawing.Size(48, 23)
+        Me.moveBtn.TabIndex = 213
+        Me.moveBtn.Text = "Move"
+        Me.moveBtn.UseVisualStyleBackColor = False
+        Me.moveBtn.Visible = False
+        '
         'kdu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.WindowFrame
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.ClientSize = New System.Drawing.Size(621, 394)
+        Me.ClientSize = New System.Drawing.Size(621, 396)
+        Me.Controls.Add(Me.moveBtn)
+        Me.Controls.Add(Me.closeBtn)
         Me.Controls.Add(Me.ip15)
         Me.Controls.Add(Me.ip11)
         Me.Controls.Add(Me.ip12)
@@ -1759,7 +1799,7 @@ Partial Class kdu
         Me.Controls.Add(Me.displayPic)
         Me.Controls.Add(Me.selectBTN)
         Me.DoubleBuffered = True
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "kdu"
@@ -1906,4 +1946,6 @@ Partial Class kdu
     Friend WithEvents ip12 As System.Windows.Forms.TextBox
     Friend WithEvents ip13 As System.Windows.Forms.TextBox
     Friend WithEvents ip14 As System.Windows.Forms.TextBox
+    Friend WithEvents closeBtn As System.Windows.Forms.Button
+    Friend WithEvents moveBtn As System.Windows.Forms.Button
 End Class

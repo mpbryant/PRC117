@@ -251,7 +251,6 @@ Partial Class HelperForm
         Me.Controls.Add(Me.Label1)
         Me.Name = "HelperForm"
         Me.Text = "HelperForm"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
